@@ -1,0 +1,250 @@
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="ball-atom" [fullScreen]="true">
+    <p style="color: white"> Cargando... </p>
+</ngx-spinner>
+
+<div class="page-wrapper chiller-theme sidebar-bg bg2 toggled border-radius-on">
+    <main class="page-content pt-2">
+
+        <app-menu [usuario]="usuario"></app-menu>
+
+        <div class="container-fluid p-5">
+            <div class="row">
+                <div class="col-md-8">
+                    <h4 class="page-title">Insumos</h4>
+                </div>
+                <div class="col-md-4" style="text-align: right !important;">
+                    <ul class="breadcrumbs">
+                        <li><a [routerLink]="['/administrador/sede']">GCP</a></li>
+                        <li><span>Insumos</span></li>
+                    </ul>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-lg-12 mt-5">
+                    <div class="card">
+
+
+                        <div class="card-body">
+
+                            <div class="form-row">
+                                <div class="col-4"></div>
+                                <div class="col-4"></div>
+                                <div class="col-4">
+                                    <button type="button" class="btn btn-block btn-success" (click)="abrirModalCrearInsumo()"
+                                        >Crear Insumo &nbsp;&nbsp;<i class="fas fa-boxes"></i></button>
+                                </div>
+                            </div>
+                            <br><br>
+
+                            <div class="table-responsive">
+                                <table class="table table-hover table-bordered">
+
+                                    <thead class="thead-dark">
+                                        <tr style="text-align: center;">
+                                            <th scope="col"><b>ID</b></th>
+                                            <th scope="col"><b>Nombre Insumo</b></th>
+                                            <th scope="col"><b>Características del Insumo</b></th>
+                                            <th scope="col"><b>Total</b></th>
+                                            <th scope="col"><b>Disponibles</b></th>
+                                            <th scope="col"><b>Asignados</b></th>
+                                            <th scope="col" colspan="3"><b>Opciones</b></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody style="vertical-align: middle;">
+
+                                        <tr *ngFor="let dato of lstDatos; index as i" style="text-align: center;">
+
+                                            <td style="vertical-align:middle;"><b>{{ i+1 }}</b></td>
+                                            <td style="vertical-align:middle;"><b>{{ dato.nombre }}</b></td>
+                                            <td style="vertical-align:middle;">{{ dato.caracteristicas }}</td>
+                                            <td style="vertical-align:middle;">{{ dato.cantidad }}</td>
+                                            <td style="vertical-align:middle;">{{ dato.disponibles }}</td>
+                                            <td style="vertical-align:middle;">{{ dato.asignados }}</td>
+
+                                            <td>
+                                                <button class="btn btn-primary btn-block"
+                                                    (click)="listarDetalleInsumos(dato.idInsumo)">
+                                                    <i class="fas fa-list fa-lg"></i>
+                                                </button>
+                                            </td>
+
+                                            <td>
+                                                <button class="btn btn-warning btn-block"
+                                                     (click)="abrirModalEditarInsumo(dato)">
+                                                    <i class="fas fa-pencil-alt fa-lg"></i>
+                                                </button>
+                                            </td>
+
+                                         <!--    <td>
+                                                <button class="btn btn-danger btn-block"
+                                                    (click)="eliminarInsumo(dato.idInsumo)">
+                                                    <i class="fas fa-trash-alt fa-lg"></i>
+                                                </button>
+                                            </td> -->
+
+                                        </tr>
+
+                                    </tbody>
+
+                                </table>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+
+<div class="modal fade" id="ModalTipo">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Gestión Insumos</h5>
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+            </div>
+            <div class="modal-body">
+
+                <kendo-grid [kendoGridBinding]="gridView" [pageSize]="10" [pageable]="true" [sortable]="true" [resizable]="true">
+
+                    <ng-template kendoGridToolbarTemplate>
+                        <input class="form-control" kendoTextBox  placeholder="Ingrese el código del insumo..." (input)="onFilter($event.target.value)" (keyup)="$event.target.value = globales.formatoCampo($event.target.value, 'abcdefghijklmnñopqrstuvwxyzáéíóúÁÉÍÓÚABCDEFGHIJKLMNÑOPQRSTUVWXYZ0123456789-. ', 100, 1)" />
+                    </ng-template>
+
+
+                    <kendo-grid-column headerClass="text-center" field="nombre" title="Nombre">
+                    </kendo-grid-column>
+
+                    <kendo-grid-column headerClass="text-center" field="codigo" title="Código">
+                    </kendo-grid-column>
+
+                    <kendo-grid-column headerClass="text-center" class="text-center" width="140" field="asignacion" title="Asignación">
+                    </kendo-grid-column>
+
+                    <kendo-grid-column headerClass="text-center" width="110" title="Habilitar">
+                        <ng-template kendoGridCellTemplate let-dataItem>
+                            <button *ngIf="dataItem.estado == 2" class="btn btn-success btn-block"
+                                (click)="actualizarEstadoDetalleInsumo(dataItem)">
+                                <i class="fas fa-check fa-lg"></i>
+                            </button>
+                        </ng-template>
+                    </kendo-grid-column>    
+
+                    <kendo-grid-column headerClass="text-center" width="110" title="Deshabilitar">
+                        <ng-template kendoGridCellTemplate let-dataItem>
+                            <button *ngIf="dataItem.estado == 1" class="btn btn-danger btn-block"
+                                (click)="actualizarEstadoDetalleInsumo(dataItem)">
+                                <i class="fas fa-times fa-lg"></i>
+                            </button>
+                        </ng-template>
+                    </kendo-grid-column>
+
+                   
+                </kendo-grid>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="ModalCrear">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Crear Gestión Insumos</h5>
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+            </div>
+            <div class="modal-body">
+
+                <div class="form-row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="nombre">Nombre</label>
+                            <input type="text" class="form-control" id="nombre" placeholder="Ingrese el nombre"
+                                [(ngModel)]="formulario.nombre" name="formulario.nombre"
+                                (keyup)="formulario.nombre = globales.formatoCampo(formulario.nombre, 'abcdefghijklmnñopqrstuvwxyzáéíóúÁÉÍÓÚABCDEFGHIJKLMNÑOPQRSTUVWXYZ ', 50, 1)">
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="caracteristicas">Características</label>
+                            <input type="text" class="form-control" id="caracteristicas"
+                                placeholder="Ingrese la caracteristicas" [(ngModel)]="formulario.caracteristicas"
+                                name="formulario.caracteristicas"
+                                (keyup)="formulario.caracteristicas = globales.formatoCampo(formulario.caracteristicas, 'abcdefghijklmnñopqrstuvwxyzáéíóúÁÉÍÓÚABCDEFGHIJKLMNÑOPQRSTUVWXYZ0123456789-.,_ ', 200, 1)">
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="formGroupExampleInput">Cantidad</label>
+                            <input type="text" class="form-control" id="cantidad" placeholder="Ingrese la cantidad"
+                                [(ngModel)]="formulario.cantidad" name="formulario.cantidad"
+                                (keyup)="formulario.cantidad = globales.formatoCampo(formulario.cantidad, '0123456789', 50, 2)">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-success" (click)="guardarInsumos()">Guardar <i class="far fa-save"></i></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="EditarInsumo" tabindex="-1" role="dialog" aria-labelledby="EditarInsumo" aria-hidden="true">
+<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<h5 class="modal-title">Actualizar Insumo</h5>
+<button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+</div>
+<div class="modal-body">
+    <div>
+        <div class="form-group">
+            <label>Nombre Insumo</label>
+            <input type="text" class="form-control" placeholder="Ingresar el nombre del Insumo"
+                [(ngModel)]="formulario.nombre" 
+                (keyup)="formulario.nombre = globales.formatoCampo(formulario.nombre, 'abcdefghijklmnñopqrstuvwxyzáéíóúÁÉÍÓÚABCDEFGHIJKLMNÑOPQRSTUVWXYZ0123456789-. ', 100, 1)">
+        </div>
+        <div class="form-group">
+            <label>Características Insumo</label>
+            <input type="text" class="form-control" placeholder="Ingresar el nombre del Insumo"
+                [(ngModel)]="formulario.caracteristicas" 
+                (keyup)="formulario.caracteristicas= globales.formatoCampo(formulario.caracteristicas, 'abcdefghijklmnñopqrstuvwxyzáéíóúÁÉÍÓÚABCDEFGHIJKLMNÑOPQRSTUVWXYZ0123456789-. ', 100, 1)">
+        </div>
+    </div>
+
+        <!-- <div class="col-md-12">
+            <div class="form-group">
+                <label for="caracteristicas">Características</label>
+                <input type="text" class="form-control" id="caracteristicas"
+                    placeholder="Ingrese la caracteristicas" [(ngModel)]="formulario.caracteristicas"
+                    name="formulario.caracteristicas"
+                    (keyup)="formulario.caracteristicas = globales.formatoCampo(formulario.caracteristicas, 'abcdefghijklmnñopqrstuvwxyzáéíóúÁÉÍÓÚABCDEFGHIJKLMNÑOPQRSTUVWXYZ0123456789-.,_ ', 200, 1)">
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="formGroupExampleInput">Cantidad</label>
+                <input type="text" class="form-control" id="cantidad" placeholder="Ingrese la cantidad"
+                    [(ngModel)]="formulario.cantidad" name="formulario.cantidad"
+                    (keyup)="formulario.cantidad = globales.formatoCampo(formulario.cantidad, '0123456789', 50, 2)">
+            </div>
+        </div>
+    </div>
+</div> -->
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+<button type="button" class="btn btn-primary" (click)="actualizarInsumo()">Actualizar Insumo</button>
+</div>
+</div>
+</div>
+</div>
+
+

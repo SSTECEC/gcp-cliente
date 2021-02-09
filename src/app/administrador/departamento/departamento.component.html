@@ -1,0 +1,145 @@
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="ball-atom" [fullScreen]="true">
+    <p style="color: white" > Cargando... </p>
+  </ngx-spinner>
+  
+  <div class="page-wrapper chiller-theme sidebar-bg bg2 toggled border-radius-on">
+    <main class="page-content pt-2">
+  
+        <app-menu [usuario]="usuario"></app-menu>
+  
+        <div class="container-fluid p-5">
+            <div class="row">
+                <div class="col-md-8">
+                    <h4 class="page-title">Departamento</h4>
+                </div>
+                <div class="col-md-4" style="text-align: right !important;">
+                    <ul class="breadcrumbs">
+                        <li><a [routerLink]="['/administrador/sede']">GCP</a></li>
+                        <li><span>Departamento</span></li>
+                    </ul>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-lg-12 mt-5">
+                    <div class="card">
+                        <div class="card-body">
+
+
+                            <div class="form-row">
+                                <div class="col-4"></div>
+                                <div class="col-4"></div>
+                                <div class="col-4">
+                                    <button type="button" class="btn btn-block btn-success" data-toggle="modal"
+                                    data-target="#ModalDatos">Crear Departamento &nbsp;&nbsp;<i class="fas fa-landmark"></i></button>
+                                </div>
+                            </div>
+                            <br><br>
+
+                            <div class="table-responsive">
+                                <table class="table table-hover table-bordered">
+                                    <thead class="text-uppercase thead-dark text-center">
+                                        <tr class="text-white">
+                                            <th scope="col">Sede</th>
+                                            <th scope="col">Piso</th>
+                                            <th scope="col">Sección</th>
+                                            <th scope="col">Código</th>
+                                            <th scope="col">Capacidad</th>
+                                            <th scope="col">Nombre</th>
+                                            <th scope="col">Tipo</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="text-center" style="vertical-align: middle;">
+                                        <tr *ngFor="let dato of lstDatos">
+                                            <td>{{ dato.nombreSede }}</td>
+                                            <td>{{ dato.piso }}</td>
+                                            <td>{{ dato.seccion }}</td>
+                                            <td>{{ dato.codigo }}</td>
+                                            <td>{{ dato.capacidad }}</td>
+                                            <td>{{ dato.nombreDepartamento }}</td>
+                                            <td>{{ dato.tipoDepartamento }}</td>
+                                        </tr>
+                                        <tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+  </div>
+  
+  <div class="modal fade" id="ModalDatos">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Gestión Departamento</h5>
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+            </div>
+            <div class="modal-body">
+
+                <div>
+                    <div class="form-group">
+
+                        <label>Código</label>
+                        <input type="text" class="form-control" placeholder="Ingresar el codigo del departamento"
+                            [(ngModel)]="formulario.codigo" [ngStyle]="{'pointer-events': 'none'}"
+                            (keyup)="formulario.codigo = globales.formatoCampo(formulario.codigo, 'abcdefghijklmnñopqrstuvwxyzáéíóúÁÉÍÓÚABCDEFGHIJKLMNÑOPQRSTUVWXYZ ', 100, 1)">
+                    </div>
+                    <div class="form-group">
+                        <label>Capacidad</label>
+                        <input type="text" class="form-control" placeholder="Ingresar la capacidad del departamento"
+                            [(ngModel)]="formulario.capacidad"
+                            (keyup)="formulario.capacidad = globales.formatoCampo(formulario.capacidad, '1234567890', 20, 2)">
+                    </div>
+                    <div class="form-group">
+                        <label>Nombre</label>
+                        <input type="text" class="form-control"
+                            placeholder="Ingresar el nombre del tipo de departamento" [(ngModel)]="formulario.nombre"
+                            (keyup)="formulario.nombre = globales.formatoCampo(formulario.nombre, 'abcdefghijklmnñopqrstuvwxyzáéíóúÁÉÍÓÚABCDEFGHIJKLMNÑOPQRSTUVWXYZ0123456789 ', 100, 1)">
+                    </div>
+                    <div class="form-group">
+                        <div class="form-group">
+                            <label>Tipo</label>
+                            <select class="form-control" [(ngModel)]="formulario.idTipoDepartamento">
+                                <option *ngFor="let dtTipo of lstTipo" value="{{ dtTipo.idTipoDepartamento }}">
+                                    {{ dtTipo.nombre }}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-group">
+                            <label>Sede</label>
+                            <select class="form-control" [(ngModel)]="formulario.idSede"
+                                (ngModelChange)="listarSedeDetallesParametro()">
+                                <option *ngFor="let sedeC of lstSedes" value="{{ sedeC.idSede }}">{{ sedeC.nombre }}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-group">
+                            <label>Detalles Sede</label>
+                            <select class="form-control" [(ngModel)]="formulario.idSedeDetalle">
+                                <option *ngFor="let dtSede of lstSedeDetallesParametro"
+                                    value="{{ dtSede.idSedeDetalle }}">
+                                    Piso {{ dtSede.piso }} &nbsp;&nbsp;&nbsp; {{ dtSede.seccion }}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-success" (click)="guardarDepartamento()">Guardar <i class="far fa-save"></i></button>
+            </div>
+        </div>
+    </div>
+</div>

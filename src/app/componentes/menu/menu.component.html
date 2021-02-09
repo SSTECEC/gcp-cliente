@@ -1,0 +1,222 @@
+<nav id="sidebar" class="sidebar-wrapper">
+    <div class="sidebar-content">
+        
+        <div class="sidebar-item sidebar-brand">
+            <a>Plataforma GCP</a>
+        </div>
+        
+        <div class="sidebar-item sidebar-header flex-nowrap" style="text-align: right !important;">
+            <div class="user-pic">
+                <img class="img-responsive img-rounded" src="{{ usuario.foto }}" alt="User picture">
+            </div>
+            <div class="user-info">
+                <span class="user-name"><strong>{{ usuario.usuario }}</strong></span>
+                <span class="user-role">{{usuario.Rol}}</span>
+                <span class="user-status">
+                    <i class="fas fa-sign-in-alt"></i>
+                    <a (click)="cerrarSesion()" style="cursor: pointer;"><span>Cerrar Sesión</span></a>
+                </span>
+            </div>
+        </div>
+        
+        <div class="sidebar-item sidebar-menu">
+            <ul>
+                <li class="header-menu">
+                    <span>Reserva</span>
+                </li>
+
+                <li>
+                    <a [routerLink]="['/administrador/reserva']">
+                        <i class="fa fa-folder"></i>
+                        <span class="menu-text">Nueva Reserva</span>
+                    </a>
+                </li>   
+                <li>
+                    <a [routerLink]="['/administrador/listar/reserva']">
+                        <i class="fa fa-folder"></i>
+                        <span class="menu-text">Listados Reservas</span>
+                    </a>
+                </li>     
+
+
+
+
+                <li class="header-menu">
+                    <span>Gestión</span>
+                </li>
+                <!-- <li class="sidebar-dropdown">
+                    <a>
+                        <i class="fa fa-tachometer-alt"></i>
+                        <span class="menu-text">Dashboard</span>
+                        <span class="badge badge-pill badge-warning">New</span>
+                    </a>
+                    <div class="sidebar-submenu">
+                        <ul>
+                            <li>
+                                <a>Dashboard 1
+                                    <span class="badge badge-pill badge-success">Pro</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a>Dashboard 2</a>
+                            </li>
+                            <li>
+                                <a>Dashboard 3</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="sidebar-dropdown">
+                    <a>
+                        <i class="fa fa-shopping-cart"></i>
+                        <span class="menu-text">E-commerce</span>
+                        <span class="badge badge-pill badge-danger">3</span>
+                    </a>
+                    <div class="sidebar-submenu">
+                        <ul>
+                            <li>
+                                <a>Products
+
+                                </a>
+                            </li>
+                            <li>
+                                <a>Orders</a>
+                            </li>
+                            <li>
+                                <a>Credit cart</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="sidebar-dropdown">
+                    <a>
+                        <i class="far fa-gem"></i>
+                        <span class="menu-text">Components</span>
+                    </a>
+                    <div class="sidebar-submenu">
+                        <ul>
+                            <li>
+                                <a>General</a>
+                            </li>
+                            <li>
+                                <a>Panels</a>
+                            </li>
+                            <li>
+                                <a>Tables</a>
+                            </li>
+                            <li>
+                                <a>Icons</a>
+                            </li>
+                            <li>
+                                <a>Forms</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="sidebar-dropdown">
+                    <a>
+                        <i class="fa fa-chart-line"></i>
+                        <span class="menu-text">Charts</span>
+                    </a>
+                    <div class="sidebar-submenu">
+                        <ul>
+                            <li>
+                                <a>Pie chart</a>
+                            </li>
+                            <li>
+                                <a>Line chart</a>
+                            </li>
+                            <li>
+                                <a>Bar chart</a>
+                            </li>
+                            <li>
+                                <a>Histogram</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="sidebar-dropdown">
+                    <a>
+                        <i class="fa fa-globe"></i>
+                        <span class="menu-text">Maps</span>
+                    </a>
+                    <div class="sidebar-submenu">
+                        <ul>
+                            <li>
+                                <a>Google maps</a>
+                            </li>
+                            <li>
+                                <a>Open street map</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="header-menu">
+                    <span>Extra</span>
+                </li> -->
+
+                <li>
+                    <a [routerLink]="['/administrador/sede']">
+                        <i class="fa fa-book"></i>
+                        <span class="menu-text">Sedes</span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a [routerLink]="['/administrador/departamento/tipo']">
+                        <i class="fa fa-folder"></i>
+                        <span class="menu-text">Tipo Departamentos</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a [routerLink]="['/administrador/insumo']">
+                        <i class="fa fa-folder"></i>
+                        <span class="menu-text">Insumos</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a [routerLink]="['/administrador/gestion/usuarios']">
+                        <i class="fa fa-folder"></i>
+                        <span class="menu-text">Usuarios</span>
+                    </a>
+                </li>
+
+
+                <li class="header-menu">
+                    <span>Asignación</span>
+                </li>
+
+                <li>
+                    <a [routerLink]="['/administrador/departamento']">
+                        <i class="fa fa-calendar"></i>
+                        <span class="menu-text">Departamentos</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a [routerLink]="['/administrador/departamento/insumo']">
+                        <i class="fa fa-folder"></i>
+                        <span class="menu-text">Insumos</span>
+                    </a>
+                </li>
+
+                <li class="header-menu">
+                    <span>Extras</span>
+                </li>
+
+                <li>
+                    <a [routerLink]="['/administrador/gestion/roles']">
+                        <i class="fa fa-folder"></i>
+                        <span class="menu-text">Roles</span>
+                    </a>
+                </li>
+                
+                
+            </ul>
+        </div>
+
+    </div>
+</nav>
