@@ -56,7 +56,6 @@ export class InsumosComponent implements OnInit {
     this.connection.get("listarInsumos", "").subscribe(
       (res: any) => {
         this.spinner.hide();
-        console.log(res);
         this.lstDatos = res;
       },
       err => {
@@ -212,20 +211,22 @@ export class InsumosComponent implements OnInit {
 
   public actualizarEstadoDetalleInsumo(detalleInsumoSeleccionado: any) {
 
-
-    console.log('detalleInsumoSeleccionado', detalleInsumoSeleccionado)
-
     var estadoDetalle: any;
+    var signo: any;
 
     if (detalleInsumoSeleccionado.estado == 1) {
       estadoDetalle = 2;
+      signo = 'resta';
     } else {
       estadoDetalle = 1;
+      signo = 'suma';
     }
 
     var datos: any = {
       idDetalleInsumo: detalleInsumoSeleccionado.idDetalleInsumo,
-      estado: estadoDetalle
+      estado: estadoDetalle,
+      idInsumo: detalleInsumoSeleccionado.idInsumo,
+      signoProceso : signo
     }
 
     this.spinner.show();
@@ -235,6 +236,7 @@ export class InsumosComponent implements OnInit {
           this.spinner.hide();
           this.globales.notificacion("Estado cambiado exitosamente", "success", "top");
           this.listarDetalleInsumos(detalleInsumoSeleccionado.idInsumo);
+          this.listarInsumos();
         }
       },
       err => {

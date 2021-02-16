@@ -28,6 +28,9 @@ export class DepartamentoInsumosComponent implements OnInit {
   public p: any = 1;
   public globales: GlobalsService = new GlobalsService();
   public departamentoInsumo: any;
+
+  public disabledCantidad : boolean = true;
+
   constructor(public session: SessionService, private spinner: NgxSpinnerService, public connection: ConnectionService) { }
 
   ngOnInit(): void {
@@ -83,14 +86,14 @@ export class DepartamentoInsumosComponent implements OnInit {
   }
 
   public listarDepartamentoInsumosDetalle(departamento: any) {
+    
     this.spinner.show();
-    this.connection.get("listarDepartamentoInsumos?idDepartamento=" + departamento.idDepartamento, "").subscribe(
+    this.connection.get("listarInsumosDisponiblesDepartamento?idDepartamento=" + departamento.idDepartamento, "").subscribe(
       (res: any) => {
         this.spinner.hide();
         if (res.length != 0) {
           this.lstDatos = res;
-          this.p = 1;
-          $('#ModalDetalles').modal('show')
+          $('#ModalDetalles').modal('show');
         } else {
           this.globales.alerta("Información", "<b>Este departamento no tiene insumos asignados por el momento.</b><br><br>", "info");
         }
@@ -105,102 +108,77 @@ export class DepartamentoInsumosComponent implements OnInit {
 
   public guardarDepartamentoInsumos() {
 
-    this.connection.get("listarDetalleInsumosDisponibles?idInsumo=" + this.formulario.idInsumo + "&cantidad=" + this.formulario.cantidad, "").subscribe(
-      (res: any) => {
-
-        var datos = "";
-
-        for (let i = 0; i < res.length; i++) {
-          datos += "(" + this.formulario.idDepartamento + "," + res[i].idDetalleInsumo + "," + "1,1" + "),";
-          this.connection.get("actualizarEstadoAsignacionDetalleInsumo?idDetalleInsumo=" + res[i].idDetalleInsumo, "").subscribe(
+    if( this.globales.validarModalAsignarInsumos(this.formulario)){
+      this.connection.get("listarDetalleInsumosDisponibles?idInsumo=" + this.formulario.idInsumo + "&cantidad=" + this.formulario.cantidad, "").subscribe(
+        (res: any) => {
+  
+          var datos = "";
+  
+          for (let i = 0; i < res.length; i++) {
+            datos += "(" + this.formulario.idDepartamento + "," + res[i].idDetalleInsumo + "," + "1,1" + "),";
+            this.connection.get("actualizarEstadoAsignacionDetalleInsumo?idDetalleInsumo=" + res[i].idDetalleInsumo, "").subscribe(
+              (res: any) => {
+              },
+              err => {
+                console.log(err);
+              }
+            );
+          }
+  
+          var query = {
+            cadena: datos.substr(0, (datos.length - 1))
+          }
+  
+          this.spinner.show();
+          this.connection.post("guardarDepartamentoInsumo", query, "").subscribe(
             (res: any) => {
+              if (res) {
+                this.connection.get("listarInsumoEspecifico?idInsumo=" + this.formulario.idInsumo, "").subscribe(
+                  (res: any) => {
+                    if (res) {
+                      var datos: any = {
+                        idInsumo: res.idInsumo,
+                        disponibles: parseInt(res.disponibles) - parseInt(this.formulario.cantidad),
+                        asignados: parseInt(res.asignados) + parseInt(this.formulario.cantidad)
+                      }
+  
+                      this.connection.post("actualizarInsumoValores", datos, "").subscribe(
+                        (res: any) => {
+                          if(res){
+                            this.spinner.hide();
+                            this.cerrarModal('ModalAsignarInsumos');
+                            this.globales.notificacion("Insumos asignados exitosamente", "success", "top");
+                          }
+                        },
+                        err => {
+                        console.log(err);
+                        }
+                        );
+                    }
+                  },
+                  err => {
+                    console.log(err);
+                  }
+                );
+              }
             },
             err => {
               console.log(err);
+              this.spinner.hide();
+              this.globales.notificacion("Error con el servicio de datos", "error", "top");
             }
           );
+  
+  
+        },
+        err => {
+          console.log(err);
+          this.globales.notificacion("Error con el servicio de datos", "error", "top");
         }
-
-        var query = {
-          cadena: datos.substr(0, (datos.length - 1))
-        }
-
-        this.spinner.show();
-        this.connection.post("guardarDepartamentoInsumo", query, "").subscribe(
-          (res: any) => {
-            if (res) {
-              this.connection.get("listarInsumoEspecifico?idInsumo=" + this.formulario.idInsumo, "").subscribe(
-                (res: any) => {
-                  if (res) {
-                    var datos: any = {
-                      idInsumo: res.idInsumo,
-                      disponibles: parseInt(res.disponibles) - parseInt(this.formulario.cantidad),
-                      asignados: parseInt(res.asignados) + parseInt(this.formulario.cantidad)
-                    }
-
-                    this.connection.post("actualizarInsumoValores", datos, "").subscribe(
-                      (res: any) => {
-                        if(res){
-                          this.spinner.hide();
-                          this.cerrarModal('ModalAsignarInsumos');
-                          this.globales.notificacion("Insumos asignados exitosamente", "success", "top");
-                        }
-                      },
-                      err => {
-                      console.log(err);
-                      }
-                      );
-                  }
-                },
-                err => {
-                  console.log(err);
-                }
-              );
-            }
-          },
-          err => {
-            console.log(err);
-            this.spinner.hide();
-            this.globales.notificacion("Error con el servicio de datos", "error", "top");
-          }
-        );
-
-
-      },
-      err => {
-        console.log(err);
-        this.globales.notificacion("Error con el servicio de datos", "error", "top");
-      }
-    );
-
-
-
-    /*  "";
-    var codigo = parseInt(this.formulario.codigo);
-    for (let i = 0; i < parseInt(this.formulario.cantidad); i++) {
-    codigo++
+      );
     }
-    var query = {
-    cadena: datos.substr(0, (datos.length - 1))
-    }
-    console.log(query);
-    console.log(JSON.stringify(query));
-    this.spinner.show();
-    this.connection.post("guardarDepartamentoInsumo", query, "").subscribe(
-    (res: any) => {
-    this.spinner.hide();
-    this.cerrarModal('ModalAsignarInsumos');
-    this.globales.notificacion("Insumos asignados exitosamente", "success", "top");
-    },
-    err => {
-    console.log(err);
-    this.spinner.hide();
-    this.globales.notificacion("Error con el servicio de datos", "error", "top");
-    }
-    ); */
 
-
-
+    
   }
 
   public generarCodigo(numero: any) {
@@ -253,11 +231,13 @@ export class DepartamentoInsumosComponent implements OnInit {
   }
 
   public buscarInsumoEspecifico(idInsumo: any) {
+    this.formulario.cantidad = '0';
     this.spinner.show();
     this.connection.get("listarInsumoEspecifico?idInsumo=" + idInsumo, "").subscribe(
       (res: any) => {
         this.spinner.hide();
-        this.limiteMax = parseInt(res.cantidad);
+        this.limiteMax = parseInt(res.disponibles);
+        this.disabledCantidad = false;
       },
       err => {
         console.log(err);
@@ -271,11 +251,18 @@ export class DepartamentoInsumosComponent implements OnInit {
 
   public abrirModalAsignarInsumo() {
     $("#ModalAsignarInsumos").modal("toggle");
+    this.limpiarFormularioModal();
+    this.disabledCantidad = true;
   }
 
   public cerrarModal(name: any) {
     //$("#"+name).modal("toggle");
-    $('#' + name).modal('hide')
+    $('#' + name).modal('hide');
   }
+
+  public limpiarFormularioModal(){
+    this.formulario = { idDepartamentoInsumo: '', idDepartamento: '', idInsumo: '', codigo: '', estado: '', cantidad: ''}
+  }
+  
 
 }

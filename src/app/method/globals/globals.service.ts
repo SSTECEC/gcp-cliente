@@ -34,6 +34,27 @@ export class GlobalsService {
     return validacion;
   }
 
+  public validarModalActualizarSede(fmrSede: any){
+    
+    var validacion = true;
+    if (fmrSede.nombre == ""){
+      validacion = false;
+      this.notificacion("Ingresar el nombre de la Sede", 'error', 'top' );
+    } else if (fmrSede.nombre.length <= 5) {
+      validacion = false;
+      this.notificacion("El nombre ingresado es muy corto", 'error', 'top' ); 
+    } else if (fmrSede.direccion == "") {
+      validacion = false;
+      this.notificacion("Ingresar la dirección", 'error', 'top' );
+    } else if (fmrSede.direccion.length <= 5) {
+      validacion = false;
+      this.notificacion("La dirección ingresada es muy corta", 'error', 'top' ); 
+    } else {
+      validacion = true;
+    }
+    return validacion;
+  }
+
   public validarModalCrearUsuario(formulario: any){
     var validacion = true;
     if (formulario.usuario == "") {
@@ -148,6 +169,23 @@ export class GlobalsService {
     } else if(formulario.idSedeDetalle == 0 ){
       validacion = false;
       this.notificacion("El campo sede detalle es oligatorio", 'error', 'top' );
+    } else{
+      validacion = true;
+    }
+    return validacion;
+  }
+
+  public validarModalAsignarInsumos(formulario : any){
+    var validacion = true;
+    if(formulario.idDepartamento == ""){
+      validacion = false;
+      this.notificacion("Debe seleccionar el departamento", 'error', 'top' );
+    } else if(formulario.idInsumo == "" ){
+      validacion = false;
+      this.notificacion("Debe seleccionar el insumo a asignar", 'error', 'top' );
+    } else if(formulario.cantidad == "" || formulario.cantidad == 0 ){
+      validacion = false;
+      this.notificacion("El campo cantidad no puede ser 0", 'error', 'top' );
     } else{
       validacion = true;
     }

@@ -168,18 +168,20 @@
                             <tr style="text-align: center;">
                                 <th scope="col"><b>ID</b></th>
                                 <th scope="col"><b>Nombre Sede</b></th>
-                                <th scope="col"><b>Dirección de la Sede</b></th>
+                                <!-- <th scope="col"><b>Dirección de la Sede</b></th> -->
                                 <th scope="col"><b>Detalle Piso</b></th>
                                 <th scope="col"><b>Detalle Sección</b></th>
+                                <th scope="col"><b>Estado</b></th>
                             </tr>
                         </thead>
                         <tbody style="vertical-align: middle;">
                             <tr *ngFor="let detalle of lstSedesDetalles; index as i" style="text-align: center;">
                                 <td style="vertical-align:middle;"><b>{{ i+1 }}</b></td>
                                 <td style="vertical-align:middle;"><b>{{ detalle.nombre }}</b></td>
-                                <td style="vertical-align:middle;">{{ detalle.direccion }}</td>
+                                <!-- <td style="vertical-align:middle;">{{ detalle.direccion }}</td> -->
                                 <td style="vertical-align:middle;">{{ detalle.piso }}</td>
                                 <td style="vertical-align:middle;">{{ detalle.seccion }}</td>
+                                <td style="vertical-align:middle;">{{ detalle.asignacion }}</td>
                             </tr>
 
                         </tbody>

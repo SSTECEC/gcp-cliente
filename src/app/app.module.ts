@@ -32,7 +32,8 @@ import { ListadoReservaComponent } from './administrador/listado-reserva/listado
 import { ReservaComponent } from './administrador/reserva/reserva.component';
 import { GridModule } from '@progress/kendo-angular-grid';
 import { DepartamentoInsumosComponent } from './administrador/departamento-insumos/departamento-insumos.component';
-
+import { GestionReservaComponent } from './administrador/gestion-reserva/gestion-reserva.component';
+import { DateInputsModule } from '@progress/kendo-angular-dateinputs';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { DepartamentoInsumosComponent } from './administrador/departamento-insum
     MenuComponent,
     GestionUsuarioComponent,
     GestionRolComponent,
-    ListadoReservaComponent
+    ListadoReservaComponent,
+    GestionReservaComponent
   ],
   imports: [
     BrowserModule,
@@ -63,7 +65,8 @@ import { DepartamentoInsumosComponent } from './administrador/departamento-insum
     ButtonsModule,
     SchedulerModule,
     DropDownsModule,
-    GridModule
+    GridModule,
+    DateInputsModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [ConnectionService, SessionService, GlobalsService,{ provide: LOCALE_ID, useValue: 'es-ES' }],

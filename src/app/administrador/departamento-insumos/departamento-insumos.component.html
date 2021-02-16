@@ -80,7 +80,7 @@
 </div>
 
 <div class="modal fade" id="ModalAsignarInsumos">
-  <div class="modal-dialog modal-dialog-centered" role="document">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">Gestión Insumos</h5>
@@ -95,7 +95,7 @@
               <label>Departamento</label>
               <select class="form-control" [(ngModel)]="formulario.idDepartamento">
                 <option *ngFor="let dtDep of lstDepartamentos" value="{{ dtDep.idDepartamento }}">
-                  {{ dtDep.nombreDepartamento }} &nbsp;|&nbsp; {{ dtDep.nombreSede }} &nbsp;&nbsp;&nbsp; {{ dtDep.seccion }}
+                  {{ dtDep.codigo }} &nbsp;|&nbsp; {{ dtDep.seccion }} &nbsp;|&nbsp; {{ dtDep.nombreSede }} &nbsp;-&nbsp; {{ dtDep.nombreDepartamento }} &nbsp;&nbsp;&nbsp; ( {{ dtDep.tipoDepartamento }} ) 
                 </option>
               </select>
             </div>
@@ -113,7 +113,7 @@
           <div class="form-group">
             <label>Cantidad</label>
             <input type="number" class="form-control" placeholder="Ingresar la cantidad del insumo" [(ngModel)]="formulario.cantidad" min="0" max="{{ limiteMax }}"
-              (keyup)="formulario.cantidad = globales.formatoCampo(formulario.cantidad, '0123456789', 10, 2)">
+              (keyup)="formulario.cantidad = globales.formatoCampo(formulario.cantidad, '0123456789', 10, 2)" [readonly]="disabledCantidad">
           </div>
 
         </div>
@@ -131,58 +131,16 @@
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Lista Detalles Insumos Departamento</h5>
+        <h5 class="modal-title">Insumos Asignados</h5>
         <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
       </div>
       <div class="modal-body">
-
-        <div class="table-responsive">
-          <table class="table text-center">
-            <thead class="text-uppercase bg-primary">
-              <tr class="text-white">
-                <th scope="col">Tipo</th>
-                <th scope="col">Código</th>
-                <th scope="col">Insumo</th>
-                <th scope="col">Estado</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngIf="lstDatos.length == 0">
-                <td colspan="4">
-                  No se encontraron datos
-                </td>
-              </tr>
-              <tr *ngFor="let dato of lstDatos | paginate: { id: 'detalles', itemsPerPage: 5, currentPage: p }">
-                <td>{{ dato.tipoDepartamento }}</td>
-                <td>{{ dato.codigoInsumo }}</td>
-                <td>{{ dato.nombreInsumo }}</td>
-                <td>{{ estado(dato.estado) }}</td>
-                <td>
-                  <button class="btn btn-warning" (click)="abrirModalDepartamentoInsumo(dato) ">
-                    <i class="fa fa-pencil" style="color: white;"></i>
-                  </button>
-                </td>
-              </tr>
-              <tr>
-            </tbody>
-            <tfoot>
-              <tr>
-                <td colspan="4">
-                  <pagination-controls id="detalles" (pageChange)="p = $event" maxSize="5" directionLinks="true"
-                    autoHide="true" responsive="true" previousLabel="Anterior" nextLabel="Siguiente"
-                    screenReaderPaginationLabel="Paginación" screenReaderPageLabel="página"
-                    screenReaderCurrentLabel="estas en la página">
-                  </pagination-controls>
-                </td>
-              </tr>
-            </tfoot>
-          </table>
-        </div>
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Aceptar</button>
+        <ul class="list-group list-group-flush" *ngFor="let dato of lstDatos">
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            <h6>{{ dato.nombre }}</h6>
+            <span class="badge badge-danger">{{ dato.cantidad }}</span>
+          </li>
+        </ul>
       </div>
     </div>
   </div>

@@ -10,6 +10,7 @@ import { GestionRolComponent } from './administrador/gestion-rol/gestion-rol.com
 import { ListadoReservaComponent } from './administrador/listado-reserva/listado-reserva.component';
 import { ReservaComponent } from './administrador/reserva/reserva.component';
 import { DepartamentoInsumosComponent } from './administrador/departamento-insumos/departamento-insumos.component';
+import { GestionReservaComponent } from './administrador/gestion-reserva/gestion-reserva.component';
 
 const routes: Routes = [
   { path: '', redirectTo: "login", pathMatch: 'full' },
@@ -23,6 +24,7 @@ const routes: Routes = [
   { path: 'administrador/reserva', component: ReservaComponent },
   { path: 'administrador/listar/reserva', component: ListadoReservaComponent },
   { path: 'administrador/gestion/roles', component: GestionRolComponent },
+  { path: 'administrador/cargar/reservas', component: GestionReservaComponent },
 
 ];
 
