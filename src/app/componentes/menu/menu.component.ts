@@ -25,6 +25,7 @@ export class MenuComponent implements OnInit {
 
   cerrarSesion(){
     this.session.cerrarSesion();
+    console.log("menú",this.usuario);
   }
 
 }

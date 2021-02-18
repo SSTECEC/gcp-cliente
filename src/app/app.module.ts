@@ -69,7 +69,8 @@ import { DateInputsModule } from '@progress/kendo-angular-dateinputs';
     DateInputsModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  providers: [ConnectionService, SessionService, GlobalsService,{ provide: LOCALE_ID, useValue: 'es-ES' }],
+  /* providers: [ConnectionService, SessionService, GlobalsService,{ provide: LOCALE_ID, useValue: 'es-ES' }], */
+  providers: [ConnectionService, SessionService, GlobalsService],
   bootstrap: [AppComponent],
   entryComponents : [MenuComponent],
 })

@@ -27,14 +27,14 @@ export class InicioSesionComponent implements OnInit {
     if (this.fmrInicioSesion.controls.email.status == "INVALID") {
       this.globales.notificacion("Ingresar Correo Electrónico Válido", "warning", "top");
     } else if (this.fmrInicioSesion.controls.contrasena.status == "INVALID") {
-      this.globales.notificacion("Ingresar Contraseña", "warning", "top");
+      this.globales.notificacion("Ingresar Contraseña Válida", "warning", "top");
     }else{
       this.spinner.show();
       this.connection.post("verificacionUsuario", fmrValores, "").subscribe(
         (res: any) => {
-          
-          if(res == null){
-            this.globales.notificacion("Credenciales Incorrectas", "warning", "top");
+          if(res.resultado == -1){
+            this.globales.notificacion(res.error, "warning", "top");
+            this.spinner.hide();
           }else{
 
             var datos : any = {

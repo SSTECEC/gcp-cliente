@@ -198,7 +198,8 @@ export class GlobalsService {
       html: texto,
       icon: tipo,
       showConfirmButton: false,
-      timer: 4000
+      timer: 30000,
+      timerProgressBar: true
     })
   }
 
