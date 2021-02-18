@@ -7,9 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SedeComponent } from './administrador/sede/sede.component';
-import { SidebarComponent } from './complementos/sidebar/sidebar.component';
 import { InicioSesionComponent } from './inicio-sesion/inicio-sesion.component';
-import { NavbarComponent } from './complementos/navbar/navbar.component';
 import { ConnectionService } from './service/connection/connection.service';
 import { SessionService } from './service/session/session.service';
 import { GlobalsService } from './method/globals/globals.service';
@@ -39,9 +37,7 @@ import { DateInputsModule } from '@progress/kendo-angular-dateinputs';
   declarations: [
     AppComponent,
     SedeComponent,
-    SidebarComponent,
     InicioSesionComponent,
-    NavbarComponent,
     DepartamentoComponent,
     DepartamentoTiposComponent,
     DepartamentoInsumosComponent,
