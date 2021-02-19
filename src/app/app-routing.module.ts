@@ -11,8 +11,8 @@ import { ListadoReservaComponent } from './administrador/listado-reserva/listado
 import { ReservaComponent } from './administrador/reserva/reserva.component';
 import { DepartamentoInsumosComponent } from './administrador/departamento-insumos/departamento-insumos.component';
 import { GestionReservaComponent } from './administrador/gestion-reserva/gestion-reserva.component';
-import { ResponsableReservaComponent } from './responsable/responsable-reserva/responsable-reserva.component';
-import { ResponsableListaReservasComponent } from './responsable/responsable-lista-reservas/responsable-lista-reservas.component';
+import { ProfesorRevComponent } from './profesor/profesor-rev/profesor-rev.component';
+import { ProfesorRevListComponent } from './profesor/profesor-rev-list/profesor-rev-list.component';
 
 const routes: Routes = [
   { path: '', redirectTo: "login", pathMatch: 'full' },
@@ -27,9 +27,8 @@ const routes: Routes = [
   { path: 'administrador/listar/reserva', component: ListadoReservaComponent },
   { path: 'administrador/gestion/roles', component: GestionRolComponent },
   { path: 'administrador/cargar/reservas', component: GestionReservaComponent },
-  { path: 'responsable/reserva', component: ResponsableReservaComponent },
-  { path: 'responsable/lista/reserva', component: ResponsableListaReservasComponent },
-
+  { path: 'profesor/reserva', component: ProfesorRevComponent },
+  { path: 'profesor/lista/reservas', component: ProfesorRevListComponent }
 ];
 
 @NgModule({

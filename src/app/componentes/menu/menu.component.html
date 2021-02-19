@@ -110,20 +110,20 @@
             </ul>
         </div>
 
-        <div *ngIf="usuario.idRol == 2" class="sidebar-item sidebar-menu">
+        <div *ngIf="usuario.idRol == 3" class="sidebar-item sidebar-menu">
             <ul>
                 <li class="header-menu">
                     <span>Reserva</span>
                 </li>
 
                 <li>
-                    <a [routerLink]="['/responsable/lista/reserva']">
+                    <a [routerLink]="['/profesor/lista/reservas']">
                         <i class="fa fa-folder"></i>
                         <span class="menu-text">Listados Reservas</span>
                     </a>
                 </li> 
                 <li>
-                    <a [routerLink]="['/responsable/reserva']">
+                    <a [routerLink]="['/profesor/reserva']">
                         <i class="fa fa-folder"></i>
                         <span class="menu-text">Nueva Reserva</span>
                     </a>

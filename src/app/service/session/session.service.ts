@@ -30,7 +30,7 @@ export class SessionService {
     } else if (rol == "RECTOR") {
       this.router.navigate(['/rector/inicio']);
     } else if (rol == "PROFESOR") {
-      this.router.navigate(['/responsable/lista/reserva']);
+      this.router.navigate(['/profesor/lista/reservas']);
     }
   }
 
@@ -44,7 +44,7 @@ export class SessionService {
       } else if (datosPlanos.Rol == "RECTOR") {
         this.router.navigate(['/rector/inicio']);
       } else if (datosPlanos.Rol == "PROFESOR") {
-        this.router.navigate(['/responsable/lista/reserva']);
+        this.router.navigate(['/profesor/lista/reservas']);
       }
     }
   }
