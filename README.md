@@ -1,4 +1,4 @@
-# Gestión de Calendario Particular - Servicio
+# Gestión de Calendario Particular - Cliente
 
 _Este proyecto fue generado con [Angular CLI](https://github.com/angular/angular-cli) version 9.1.0., con un enfocaque SOA, para la escalabilidad y adaptabilidad del proyecto_
 
@@ -10,7 +10,10 @@ $ npm install
 
 ## Inicializar Proyecto ⚙️
 
-_Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files._
+_
+Ejecutar `ng serve` para un servidor de desarrollo. Ingresa a `http://localhost:4200/`. 
+La aplicación se recargará automáticamente si cambia alguno de los archivos de origen.
+_
 
 ```
     $ ng serve
