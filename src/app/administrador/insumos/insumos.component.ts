@@ -304,16 +304,12 @@ export class InsumosComponent implements OnInit {
 
 
   public abrirModalEditarInsumo(dato: any) {
-    console.log(dato);
     this.formulario = dato;
-
-    console.log(this.formulario);
     $("#EditarInsumo").modal("show");
   }
 
   public abrirModalCrearInsumo() {
     this.limpiarInsumo();
-    console.log('abrirModalCrearInsumo', this.formulario);
     $("#ModalCrear").modal("show");
   }
 
@@ -339,7 +335,7 @@ export class InsumosComponent implements OnInit {
       this.spinner.show();
       this.connection.post("actualizarInsumos", datos, "").subscribe(
         (res: any) => {
-          console.log(res);
+          
           if (res) {
             this.globales.notificacion("Insumo Actualizado Exitosamente", "success", "top");
           }

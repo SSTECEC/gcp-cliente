@@ -1,0 +1,50 @@
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="ball-atom" [fullScreen]="true">
+    <p style="color: white"> Cargando... </p>
+</ngx-spinner>
+
+<div class="page-wrapper chiller-theme sidebar-bg bg2 toggled border-radius-on">
+    <main class="page-content pt-2">
+
+        <app-menu [usuario]="usuario"></app-menu>
+
+        <div class="container-fluid p-5">
+            <div class="row">
+                <div class="col-md-8">
+                    <h4 class="page-title">Estadísticas</h4>
+                </div>
+                <div class="col-md-4" style="text-align: right !important;">
+                    <ul class="breadcrumbs">
+                        <li><a [routerLink]="['/administrador/sede']">GCP</a></li>
+                        <li><span>Estadísticas</span></li>
+                    </ul>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-lg-12 mt-5">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label><b>Listado Reservas</b></label>
+                                    <canvas id="firstChart" height="180"></canvas>
+                                    
+                                </div>
+                                <div class="col-md-6" style="text-align: left;">
+                                    <label><b>Listado Insumos</b></label>
+                                    <canvas id="secondChart" height="180"></canvas>
+                                </div>
+                            </div>
+                            <br><br>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <canvas id="thirdChart" height="100"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>

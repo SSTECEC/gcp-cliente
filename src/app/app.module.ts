@@ -35,6 +35,7 @@ import { GridModule } from '@progress/kendo-angular-grid';
 import { DateInputsModule } from '@progress/kendo-angular-dateinputs';
 import { ProfesorRevComponent } from './profesor/profesor-rev/profesor-rev.component';
 import { ProfesorRevListComponent } from './profesor/profesor-rev-list/profesor-rev-list.component';
+import { InicioComponent } from './supervisor/inicio/inicio.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { ProfesorRevListComponent } from './profesor/profesor-rev-list/profesor-
     ListadoReservaComponent,
     GestionReservaComponent,
     ProfesorRevComponent,
-    ProfesorRevListComponent
+    ProfesorRevListComponent,
+    InicioComponent
   ],
   imports: [
     BrowserModule,

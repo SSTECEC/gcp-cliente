@@ -28,7 +28,7 @@ export class GestionRolComponent implements OnInit {
     this.spinner.show();
     this.connection.get("listarRoles", "").subscribe(
       (res: any) => {
-        console.log(res);
+        
         this.spinner.hide();
         this.lstRoles = res;
       },

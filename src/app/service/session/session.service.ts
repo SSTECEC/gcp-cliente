@@ -28,7 +28,7 @@ export class SessionService {
     if (rol == "ADMINISTRADOR") {
       this.router.navigate(['/administrador/sede']);
     } else if (rol == "RECTOR") {
-      this.router.navigate(['/rector/inicio']);
+      this.router.navigate(['/supervisor/inicio']);
     } else if (rol == "PROFESOR") {
       this.router.navigate(['/profesor/lista/reservas']);
     }
@@ -42,7 +42,7 @@ export class SessionService {
       if (datosPlanos.Rol == "ADMINISTRADOR") {
         this.router.navigate(['/administrador/sede']);
       } else if (datosPlanos.Rol == "RECTOR") {
-        this.router.navigate(['/rector/inicio']);
+        this.router.navigate(['/supervisor/inicio']);
       } else if (datosPlanos.Rol == "PROFESOR") {
         this.router.navigate(['/profesor/lista/reservas']);
       }

@@ -18,13 +18,15 @@ export class DepartamentoComponent implements OnInit {
   public lstDatos = [];
   public lstSedes = [];
   public lstTipo = [];
+  public lstTipoDepartamento = [];
+
   public lstSedeDetallesParametro = [];
   public formulario = {
     idDepartamento: 0,
     codigo: "",
     capacidad: "",
-    nombre: "",
-    idTipoDepartamento: 0,
+    nombreDepartamento: "",
+    idTipoDepartamento:1,
     idSedeDetalle: 0,
     idSede: 0,
   }
@@ -42,7 +44,7 @@ export class DepartamentoComponent implements OnInit {
     this.connection.get("listarDepartamentos", "").subscribe(
       (res: any) => {
         this.spinner.hide();
-        console.log(res);
+        
         this.lstDatos = res;
         this.listarRegistrosDepartamento();
       },
@@ -85,8 +87,25 @@ export class DepartamentoComponent implements OnInit {
     this.connection.get("listarTipoDepartamento", "").subscribe(
       (res: any) => {
         this.spinner.hide();
-        console.log(res);
+        
         this.lstTipo = res;
+        this.listarTipoDepartamentoCambiable();
+      },
+      err => {
+        console.log(err);
+        this.spinner.hide();
+        this.globales.notificacion("Error con el servicio de datos", "error", "top");
+      }
+    );
+  }
+
+  public listarTipoDepartamentoCambiable() {
+    this.spinner.show();
+    this.connection.get("listarTipoDepartamentoCambiable", "").subscribe(
+      (res: any) => {
+        this.spinner.hide();
+        
+        this.lstTipoDepartamento = res;
         this.listarSede();
       },
       err => {
@@ -102,7 +121,7 @@ export class DepartamentoComponent implements OnInit {
     this.connection.get("listarSede", this.usuario.token).subscribe(
       (res: any) => {
         this.spinner.hide();
-        console.log(res);
+        
         this.lstSedes = res;
       },
       err => {
@@ -139,6 +158,10 @@ export class DepartamentoComponent implements OnInit {
     );
   }
 
+  public abriModalCrear() {
+    $("#ModalDatos").modal("show");
+  }
+
   public guardarDepartamento() {
     if (this.globales.validarModalGuardarDepartamento(this.formulario)) {
       this.spinner.show();
@@ -146,9 +169,9 @@ export class DepartamentoComponent implements OnInit {
         (res: any) => {
           this.spinner.hide();
           this.limpiar();
-          this.listarDepartamentos();
           $("#ModalDatos").modal("toggle");
           this.globales.notificacion("Departamento almacenado exitosamente", "success", "top");
+          window.location.reload();
         },
         err => {
           console.log(err);
@@ -164,10 +187,54 @@ export class DepartamentoComponent implements OnInit {
       idDepartamento: 0,
       codigo: "",
       capacidad: "",
-      nombre: "",
+      nombreDepartamento: "",
       idTipoDepartamento: 0,
       idSedeDetalle: 0,
       idSede: 0,
+    }
+  }
+
+  public limpiarDos() {
+    this.formulario = {
+      idDepartamento: 0,
+      codigo: this.formulario.codigo,
+      capacidad: "",
+      nombreDepartamento: "",
+      idTipoDepartamento: 0,
+      idSedeDetalle: 0,
+      idSede: 0,
+    }
+  }
+
+  public editarDepartamento(departamentoSeleccionado:any){
+    this.formulario = departamentoSeleccionado;
+    $("#EditarDepartamento").modal("toggle");
+  }
+
+  public actualizarDepartamento(){
+    if(this.globales.validarModalActualizarDepartamento(this.formulario)){
+
+      var datos : any = {
+        nombre : this.formulario.nombreDepartamento,
+        capacidad : this.formulario.capacidad,
+        idTipoDepartamento: this.formulario.idTipoDepartamento,
+        idDepartamento : this.formulario.idDepartamento,
+      }
+      this.spinner.show();
+      this.connection.post("actualizarDepartamento", datos, "").subscribe(
+        (res: any) => {
+          this.spinner.hide();
+          $("#EditarDepartamento").modal("toggle");
+          this.globales.notificacion("Departamento actualizado exitosamente", "success", "top");
+          window.location.reload();
+        },
+        err => {
+          console.log(err);
+          this.spinner.hide();
+          this.globales.notificacion("Error con el servicio de datos", "error", "top");
+        }
+      );
+
     }
   }
 

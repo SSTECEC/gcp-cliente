@@ -236,8 +236,15 @@ export class DepartamentoInsumosComponent implements OnInit {
     this.connection.get("listarInsumoEspecifico?idInsumo=" + idInsumo, "").subscribe(
       (res: any) => {
         this.spinner.hide();
-        this.limiteMax = parseInt(res.disponibles);
-        this.disabledCantidad = false;
+        console.log(res);
+
+        if(res.disponibles != 0){
+          this.limiteMax = parseInt(res.disponibles);
+          this.disabledCantidad = false;
+        } else {
+          this.globales.alertaSinTiempo("Información","El insumo que intenta asignar no posee elementos disponibles.","info");
+        }
+        
       },
       err => {
         console.log(err);

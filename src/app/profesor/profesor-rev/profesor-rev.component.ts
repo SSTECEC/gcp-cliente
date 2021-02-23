@@ -4,6 +4,9 @@ import { GlobalsService } from '../../method/globals/globals.service';
 import { ConnectionService } from '../../service/connection/connection.service';
 import { SessionService } from '../../service/session/session.service';
 
+declare var $: any;
+declare var moment: any;
+
 @Component({
   selector: 'app-profesor-rev',
   templateUrl: './profesor-rev.component.html',
@@ -17,22 +20,31 @@ export class ProfesorRevComponent implements OnInit {
 
   public p: number = 1;
 
+  public fmrParametros : any = {
+    reserva: 0,
+    fecha: '',
+    hora : 0,
+    sede: 0,
+    capacidad:0
+  }
+
+  public lstSedes : any;
+  public fechaInicioMin : any;
+
   public globales: GlobalsService = new GlobalsService();
   constructor(public session: SessionService, private spinner: NgxSpinnerService, public connection: ConnectionService) { }
 
   ngOnInit(): void {
     this.usuario = this.session.obtenerDatos();
-    console.log(this.usuario);
     this.listadoCompletoReservaciones();
   }
 
-  listadoCompletoReservaciones(){
+  public listadoCompletoReservaciones(){
     this.spinner.show();
       this.connection.get("listadoCompletoReservacionesDisponibles?idCatalogoEstado=1", "").subscribe(
         (res: any) => {
           this.spinner.hide();
           this.lstReservas = res;
-          console.log(this.lstReservas);
         },
         err => {
           console.log(err);
@@ -59,5 +71,107 @@ export class ProfesorRevComponent implements OnInit {
     );
   }
 
+  public abrirCollapse(){
+    $('#collapseExample').collapse('show');
+    this.fechaInicioMin = moment().format('YYYY-MM-DD');
+    this.listarSedes();
+  }
+
+  public listarSedes() {
+    this.spinner.show();
+    this.connection.get("listarSede", this.usuario.token).subscribe(
+      (res: any) => {
+        this.spinner.hide();
+        this.lstSedes = res;
+      },
+      err => {
+        this.spinner.hide();
+        if (err.error.result == -1) {
+          this.globales.notificacion("Credenciales expiradas <br> inicie sesión nuevamente", "error", "top");
+          this.session.cerrarSesion();
+        } else {
+          this.globales.notificacion("Error con el servicio de datos", "error", "top");
+        }
+      }
+    );
+  }
+
+  public listarPagoParametros() {
+    var cadena = ' "idCatalogoEstado"=1 AND "idUsuario" != ' + this.usuario.idUsuario + ' ';
+    var fmrParametros = this.fmrParametros;
+    var globales = this.globales;
+    $("input:checkbox[name=parametro]:checked").each(function () {
+      var parametro = $(this).val();
+      
+      if (parametro == 1) {
+        if (fmrParametros.fecha != '') {
+          cadena += "AND fecha='"+fmrParametros.fecha+"'";
+        } else {
+          globales.notificacion('Seleccione la fecha de la reserva', 'info', 'top');
+        }
+      } if (parametro == 2) {
+        if (fmrParametros.hora != 0) {
+          cadena += ' AND "horaInicioFiltro"=' + fmrParametros.hora + ' ';
+        } else {
+          globales.notificacion('Seleccione la hora de la reserva', 'info', 'top');
+        }
+      } if (parametro == 3) {
+        if (fmrParametros.sede) {
+          cadena += ' AND "idSede"=' + fmrParametros.sede + ' ';
+        } else {
+          globales.notificacion('Seleccione la sede', 'info', 'top');
+        }
+      } if (parametro == 4) {
+        if (fmrParametros.reserva != 0) {
+          cadena += ' AND "idReserva"=' + fmrParametros.reserva +' '
+        } else {
+          globales.notificacion('Ingresar el número de reserva', 'info', 'top');
+        }
+      } if (parametro == 5) {
+        if (fmrParametros.capacidad) {
+          cadena += ' AND "CAPACIDAD"= ' + fmrParametros.capacidad + '';
+        } else {
+          globales.notificacion('Ingresar la capacidad', 'info', 'top');
+        }
+      }
+    });
+    var query : any = {
+      datos : cadena 
+    }
+    this.listadoReservasFiltros(query);
+  }
+
+  public listadoReservasFiltros(query:any){
+    this.spinner.show();
+      this.connection.post("listadoReservasFiltros", query,"").subscribe(
+        (res: any) => {
+          this.spinner.hide();
+          this.lstReservas = res;
+        },
+        err => {
+          console.log(err);
+          this.spinner.hide();
+          this.globales.notificacion("Error con el servicio de datos", "error", "top");
+        }
+      );
+  }
+
+  public cerrarCollapse(){
+    $('#collapseExample').collapse('hide');
+  }
+
+  public limpiarCollapse(){
+    $("input[type=checkbox]").prop("checked", false);
+
+    this.fmrParametros = {
+      reserva: 0,
+      fecha: '',
+      hora : 0,
+      sede: 0,
+      capacidad:0
+    }
+    
+    this.listadoCompletoReservaciones();
+  }
 
 }

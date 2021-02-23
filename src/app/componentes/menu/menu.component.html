@@ -110,6 +110,28 @@
             </ul>
         </div>
 
+        <div *ngIf="usuario.idRol == 2" class="sidebar-item sidebar-menu">
+            <ul>
+                <li class="header-menu">
+                    <span>Estadísticas</span>
+                </li>
+
+                <li>
+                    <a [routerLink]="['/supervisor/inicio']">
+                        <i class="fa fa-folder"></i>
+                        <span class="menu-text">Inicio</span>
+                    </a>
+                </li> 
+                <!-- <li>
+                    <a [routerLink]="['/profesor/reserva']">
+                        <i class="fa fa-folder"></i>
+                        <span class="menu-text">Nueva Reserva</span>
+                    </a>
+                </li> -->
+
+            </ul>
+        </div>
+
         <div *ngIf="usuario.idRol == 3" class="sidebar-item sidebar-menu">
             <ul>
                 <li class="header-menu">

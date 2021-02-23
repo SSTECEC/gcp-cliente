@@ -62,7 +62,7 @@ export class SedeComponent implements OnInit {
       this.spinner.show();
       this.connection.post("guardarSede", this.fmrSede, "").subscribe(
         (res: any) => {
-          console.log(res);
+          
           this.spinner.hide();
           this.guardarSedeDetalles(res.idSede);
           this.globales.notificacion("Sede almacenada exitosamente", "success", "top");
@@ -121,7 +121,7 @@ export class SedeComponent implements OnInit {
       this.spinner.show();
       this.connection.post("actualizarSede", datos, "").subscribe(
         (res: any) => {
-          console.log(res);
+          
           if (res) {
             this.globales.notificacion("Sede Actualizada Exitosamente", "success", "top");
           }

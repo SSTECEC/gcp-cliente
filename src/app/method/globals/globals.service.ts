@@ -154,10 +154,10 @@ export class GlobalsService {
     if(formulario.capacidad == "" || formulario.capacidad == 0){
       validacion = false;
       this.notificacion("El campo capacidad en obligatorio y no puede ser igual a 0", 'error', 'top' );
-    } else if(formulario.nombre == "" ){
+    } else if(formulario.nombreDepartamento == "" ){
       validacion = false;
       this.notificacion("El campo nombre es obligatorio", 'error', 'top' );
-    } else if(formulario.nombre.length <= 5 ){
+    } else if(formulario.nombreDepartamento.length <= 5 ){
       validacion = false;
       this.notificacion("El nombre ingresado es demasiado corto", 'error', 'top' );
     } else if(formulario.idTipoDepartamento == 0){
@@ -169,6 +169,20 @@ export class GlobalsService {
     } else if(formulario.idSedeDetalle == 0 ){
       validacion = false;
       this.notificacion("El campo sede detalle es oligatorio", 'error', 'top' );
+    } else{
+      validacion = true;
+    }
+    return validacion;
+  }
+
+  public validarModalActualizarDepartamento(formulario : any){
+    var validacion = true;
+    if(formulario.nombreDepartamento == "" ){
+      validacion = false;
+      this.notificacion("El campo nombre es obligatorio", 'error', 'top' );
+    } else if(formulario.capacidad == "" || formulario.capacidad == 0){
+      validacion = false;
+      this.notificacion("El campo capacidad en obligatorio y no puede ser igual a 0", 'error', 'top' );
     } else{
       validacion = true;
     }

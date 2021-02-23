@@ -42,7 +42,6 @@ export class GestionReservaComponent implements OnInit {
 
   public logReserva : any ; 
   
-
   public globales: GlobalsService = new GlobalsService();
   constructor(public session: SessionService, private spinner: NgxSpinnerService, public connection: ConnectionService, private router: Router) { }
 
@@ -95,7 +94,8 @@ export class GestionReservaComponent implements OnInit {
         if (res == null) {
           this.fechaInicioMin = moment().format('YYYY-MM-DD');
         } else {
-          this.fechaInicioMin = moment(res.ultimaFecha).format('YYYY-MM-DD');
+          var fechaAux = moment(res.ultimaFecha).add(1, 'days');
+          this.fechaInicioMin = moment(fechaAux).format('YYYY-MM-DD');
         }
         this.verContenedorFechas = true;
       },
@@ -299,7 +299,6 @@ export class GestionReservaComponent implements OnInit {
 
   public abrirModalCargarArchivo(logSeleccionado:any){
     this.logReserva = logSeleccionado;
-    console.log(this.logReserva);
     $('#modalCargarArchivo').modal('show');
   }
 
@@ -326,5 +325,9 @@ export class GestionReservaComponent implements OnInit {
       }
     );
   }
+
+
+  
+
 
 }

@@ -13,6 +13,7 @@ import { DepartamentoInsumosComponent } from './administrador/departamento-insum
 import { GestionReservaComponent } from './administrador/gestion-reserva/gestion-reserva.component';
 import { ProfesorRevComponent } from './profesor/profesor-rev/profesor-rev.component';
 import { ProfesorRevListComponent } from './profesor/profesor-rev-list/profesor-rev-list.component';
+import { InicioComponent } from './supervisor/inicio/inicio.component';
 
 const routes: Routes = [
   { path: '', redirectTo: "login", pathMatch: 'full' },
@@ -28,7 +29,9 @@ const routes: Routes = [
   { path: 'administrador/gestion/roles', component: GestionRolComponent },
   { path: 'administrador/cargar/reservas', component: GestionReservaComponent },
   { path: 'profesor/reserva', component: ProfesorRevComponent },
-  { path: 'profesor/lista/reservas', component: ProfesorRevListComponent }
+  { path: 'profesor/lista/reservas', component: ProfesorRevListComponent },
+  { path: 'supervisor/inicio', component: InicioComponent }
+
 ];
 
 @NgModule({

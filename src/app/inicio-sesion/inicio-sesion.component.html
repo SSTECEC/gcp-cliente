@@ -6,9 +6,12 @@
     <form [formGroup]="fmrInicioSesion" (ngSubmit)="verificarUsuario(fmrInicioSesion.value)">
         <div class="login-form-head">
             <h4>Iniciar Sesión</h4>
-            <p>Hello there, Sign in and start managing your Admin Template</p>
+            <p>Gestión Calendario Particular</p>
         </div>
         <div class="login-form-body">
+
+            <br><br>
+
             <div class="form-gp">
                 <input type="email" formControlName="email" placeholder="Correo Electrónico">
                 <i class="ti-email"></i>
@@ -18,17 +21,17 @@
                 <i class="ti-lock"></i>
             </div>
  
-            <div class="text-right">
+            <!-- <div class="text-right">
                 <a href="#">Olvidaste tu contraseña ?</a>
-            </div>
-            <br><br><br>
+            </div> -->
+            <br><br><br><br>
             <div class="submit-btn-area">
                 <button type="submit"><b>Ingresar</b></button>
             </div>
-            <br><br>
-            <div class="form-footer text-center mt-5">
+            <br><br><br>
+            <!-- <div class="form-footer text-center mt-5">
                 <p class="text-muted">Aún no tienes una cuenta ? <a href="register.html">Regístrate</a></p>
-            </div>
+            </div> -->
         </div>
     </form>
 </div>
