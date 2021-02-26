@@ -17,7 +17,7 @@ export class DepartamentoInsumosComponent implements OnInit {
 
   public lstDatos = [];
   public lstInsumos = [];
-  public lstDepartamentos = [];
+  public lstDepartamentos = []; 
 
   public formulario = { idDepartamentoInsumo: '', idDepartamento: '', idInsumo: '', codigo: '', estado: '', cantidad: ''}
   
@@ -86,12 +86,13 @@ export class DepartamentoInsumosComponent implements OnInit {
   }
 
   public listarDepartamentoInsumosDetalle(departamento: any) {
-    
+
     this.spinner.show();
     this.connection.get("listarInsumosDisponiblesDepartamento?idDepartamento=" + departamento.idDepartamento, "").subscribe(
       (res: any) => {
         this.spinner.hide();
         if (res.length != 0) {
+          console.log(res);
           this.lstDatos = res;
           $('#ModalDetalles').modal('show');
         } else {
@@ -269,6 +270,10 @@ export class DepartamentoInsumosComponent implements OnInit {
 
   public limpiarFormularioModal(){
     this.formulario = { idDepartamentoInsumo: '', idDepartamento: '', idInsumo: '', codigo: '', estado: '', cantidad: ''}
+  }
+
+  public verDatos(datos:any){
+    console.log(datos)
   }
   
 

@@ -95,7 +95,7 @@
                     </a>
                 </li>
 
-                <li class="header-menu">
+                <!-- <li class="header-menu">
                     <span>Extras</span>
                 </li>
 
@@ -104,7 +104,7 @@
                         <i class="fa fa-folder"></i>
                         <span class="menu-text">Roles</span>
                     </a>
-                </li>
+                </li> -->
                 
                 
             </ul>
@@ -122,12 +122,22 @@
                         <span class="menu-text">Inicio</span>
                     </a>
                 </li> 
-                <!-- <li>
-                    <a [routerLink]="['/profesor/reserva']">
+                <li class="header-menu">
+                    <span>Reserva</span>
+                </li>
+
+                <li>
+                    <a [routerLink]="['/supervisor/lista/reservas']">
+                        <i class="fa fa-folder"></i>
+                        <span class="menu-text">Listados Reservas</span>
+                    </a>
+                </li> 
+                <li>
+                    <a [routerLink]="['/supervisor/reserva']">
                         <i class="fa fa-folder"></i>
                         <span class="menu-text">Nueva Reserva</span>
                     </a>
-                </li> -->
+                </li>
 
             </ul>
         </div>

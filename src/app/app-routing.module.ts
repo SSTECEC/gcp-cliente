@@ -14,6 +14,8 @@ import { GestionReservaComponent } from './administrador/gestion-reserva/gestion
 import { ProfesorRevComponent } from './profesor/profesor-rev/profesor-rev.component';
 import { ProfesorRevListComponent } from './profesor/profesor-rev-list/profesor-rev-list.component';
 import { InicioComponent } from './supervisor/inicio/inicio.component';
+import { SupervisorRevComponent } from './supervisor/supervisor-rev/supervisor-rev.component';
+import { SupervisorRevListComponent } from './supervisor/supervisor-rev-list/supervisor-rev-list.component';
 
 const routes: Routes = [
   { path: '', redirectTo: "login", pathMatch: 'full' },
@@ -30,7 +32,9 @@ const routes: Routes = [
   { path: 'administrador/cargar/reservas', component: GestionReservaComponent },
   { path: 'profesor/reserva', component: ProfesorRevComponent },
   { path: 'profesor/lista/reservas', component: ProfesorRevListComponent },
-  { path: 'supervisor/inicio', component: InicioComponent }
+  { path: 'supervisor/inicio', component: InicioComponent },
+  { path: 'supervisor/reserva', component: SupervisorRevComponent },
+  { path: 'supervisor/lista/reservas', component: SupervisorRevListComponent }
 
 ];
 

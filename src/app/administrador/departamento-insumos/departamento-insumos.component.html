@@ -1,81 +1,80 @@
-
 <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="ball-atom" [fullScreen]="true">
-  <p style="color: white" > Cargando... </p>
+  <p style="color: white"> Cargando... </p>
 </ngx-spinner>
 
 <div class="page-wrapper chiller-theme sidebar-bg bg2 toggled border-radius-on">
   <main class="page-content pt-2">
 
-      <app-menu [usuario]="usuario"></app-menu>
+    <app-menu [usuario]="usuario"></app-menu>
 
-      <div class="container-fluid p-5">
-          <div class="row">
-              <div class="col-md-8">
-                  <h4 class="page-title">Insumos</h4>
-              </div>
-              <div class="col-md-4" style="text-align: right !important;">
-                  <ul class="breadcrumbs">
-                      <li><a [routerLink]="['/administrador/sede']">GCP</a></li>
-                      <li><span>Insumos</span></li>
-                  </ul>
-              </div>
-          </div>
-          <hr>
-          <div class="row">
-            <div class="col-lg-12 mt-5">
-              <div class="card">
-                <div class="card-body">
+    <div class="container-fluid p-5">
+      <div class="row">
+        <div class="col-md-8">
+          <h4 class="page-title">Insumos</h4>
+        </div>
+        <div class="col-md-4" style="text-align: right !important;">
+          <ul class="breadcrumbs">
+            <li><a [routerLink]="['/administrador/sede']">GCP</a></li>
+            <li><span>Insumos</span></li>
+          </ul>
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col-lg-12 mt-5">
+          <div class="card">
+            <div class="card-body">
 
-                  <div class="form-row">
-                    <div class="col-4"></div>
-                    <div class="col-4"></div>
-                    <div class="col-4">
-                        <button type="button" class="btn btn-block btn-success" (click)="abrirModalAsignarInsumo()">
-                          Asignar Insumos &nbsp;&nbsp;<i class="fas fa-list-ol fa-lg"></i>
+              <div class="form-row">
+                <div class="col-4"></div>
+                <div class="col-4"></div>
+                <div class="col-4">
+                  <button type="button" class="btn btn-block btn-success" (click)="abrirModalAsignarInsumo()">
+                    Asignar Insumos &nbsp;&nbsp;<i class="fas fa-list-ol fa-lg"></i>
+                  </button>
+                </div>
+              </div>
+
+              <br><br>
+
+              <div class="table-responsive">
+                <table class="table table-hover table-bordered">
+                  <thead class="text-uppercase thead-dark text-center">
+                    <tr class="text-white">
+                      <th scope="col">Sede</th>
+                      <th scope="col">Piso</th>
+                      <th scope="col">Sección</th>
+                      <th scope="col">Código</th>
+                      <th scope="col">Capacidad</th>
+                      <th scope="col">Departamento</th>
+                      <th scope="col">Tipo</th>
+                      <th scope="col">Opciones</th>
+                    </tr>
+                  </thead>
+                  <tbody class="text-center" style="vertical-align: middle;">
+                    <tr *ngFor="let dato of lstDepartamentos">
+                      <td style="vertical-align:middle !important;">{{ dato.nombreSede }}</td>
+                      <td style="vertical-align:middle !important;">{{ dato.piso }}</td>
+                      <td style="vertical-align:middle !important;">{{ dato.seccion }}</td>
+                      <td style="vertical-align:middle !important;">{{ dato.codigo }}</td>
+                      <td style="vertical-align:middle !important;">{{ dato.capacidad }}</td>
+                      <td style="vertical-align:middle !important;">{{ dato.nombreDepartamento }}</td>
+                      <td style="vertical-align:middle !important;">{{ dato.tipoDepartamento }}</td>
+                      <td style="vertical-align:middle !important;">
+                        <button class="btn btn-primary" (click)="listarDepartamentoInsumosDetalle(dato)">
+                          <i class="far fa-list-alt fa-lg"></i>
                         </button>
-                    </div>
-                </div>
-
-                <br><br>
-
-                  <div class="table-responsive">
-                    <table class="table table-hover table-bordered">
-                        <thead class="text-uppercase thead-dark text-center">
-                            <tr class="text-white">
-                          <th scope="col">Sede</th>
-                          <th scope="col">Piso</th>
-                          <th scope="col">Sección</th>
-                          <th scope="col">Código</th>
-                          <th scope="col">Capacidad</th>
-                          <th scope="col">Departamento</th>
-                          <th scope="col">Tipo</th>
-                          <th scope="col">Opciones</th>
-                        </tr>
-                      </thead>
-                      <tbody class="text-center" style="vertical-align: middle;">
-                        <tr *ngFor="let dato of lstDepartamentos">
-                          <td style="vertical-align:middle !important;">{{ dato.nombreSede }}</td>
-                          <td style="vertical-align:middle !important;">{{ dato.piso }}</td>
-                          <td style="vertical-align:middle !important;">{{ dato.seccion }}</td>
-                          <td style="vertical-align:middle !important;">{{ dato.codigo }}</td>
-                          <td style="vertical-align:middle !important;">{{ dato.capacidad }}</td>
-                          <td style="vertical-align:middle !important;">{{ dato.nombreDepartamento }}</td>
-                          <td style="vertical-align:middle !important;">{{ dato.tipoDepartamento }}</td>
-                          <td style="vertical-align:middle !important;">
-                            <button class="btn btn-primary" (click)="listarDepartamentoInsumosDetalle(dato)">
-                              <i class="far fa-list-alt fa-lg"></i>
-                            </button>
-                          </td>
-                        </tr>
-                        <tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
+                      </td>
+                    </tr>
+                    <tr>
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
+        </div>
       </div>
+    </div>
   </main>
 </div>
 
@@ -95,7 +94,8 @@
               <label>Departamento</label>
               <select class="form-control" [(ngModel)]="formulario.idDepartamento">
                 <option *ngFor="let dtDep of lstDepartamentos" value="{{ dtDep.idDepartamento }}">
-                  {{ dtDep.codigo }} &nbsp;|&nbsp; {{ dtDep.seccion }} &nbsp;|&nbsp; {{ dtDep.nombreSede }} &nbsp;-&nbsp; {{ dtDep.nombreDepartamento }} &nbsp;&nbsp;&nbsp; ( {{ dtDep.tipoDepartamento }} ) 
+                  {{ dtDep.codigo }} &nbsp;|&nbsp; {{ dtDep.seccion }} &nbsp;|&nbsp; {{ dtDep.nombreSede }}
+                  &nbsp;-&nbsp; {{ dtDep.nombreDepartamento }} &nbsp;&nbsp;&nbsp; ( {{ dtDep.tipoDepartamento }} )
                 </option>
               </select>
             </div>
@@ -103,7 +103,8 @@
           <div class="form-group">
             <div class="form-group">
               <label>Insumo</label>
-              <select class="form-control" [(ngModel)]="formulario.idInsumo" (ngModelChange)="buscarInsumoEspecifico(formulario.idInsumo)">
+              <select class="form-control" [(ngModel)]="formulario.idInsumo"
+                (ngModelChange)="buscarInsumoEspecifico(formulario.idInsumo)">
                 <option *ngFor="let dtIn of lstInsumos" value="{{ dtIn.idInsumo }}">
                   {{ dtIn.nombre }}
                 </option>
@@ -112,8 +113,10 @@
           </div>
           <div class="form-group">
             <label>Cantidad</label>
-            <input type="number" class="form-control" placeholder="Ingresar la cantidad del insumo" [(ngModel)]="formulario.cantidad" min="0" max="{{ limiteMax }}"
-              (keyup)="formulario.cantidad = globales.formatoCampo(formulario.cantidad, '0123456789', 10, 2)" [readonly]="disabledCantidad">
+            <input type="number" class="form-control" placeholder="Ingresar la cantidad del insumo"
+              [(ngModel)]="formulario.cantidad" min="0" max="{{ limiteMax }}"
+              (keyup)="formulario.cantidad = globales.formatoCampo(formulario.cantidad, '0123456789', 10, 2)"
+              [readonly]="disabledCantidad">
           </div>
 
         </div>
@@ -121,26 +124,64 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary" (click)="guardarDepartamentoInsumos()">Guardar <i class="far fa-save"></i></button>
+        <button type="button" class="btn btn-primary" (click)="guardarDepartamentoInsumos()">Guardar <i
+            class="far fa-save"></i></button>
       </div>
     </div>
   </div>
 </div>
 
 <div class="modal fade" id="ModalDetalles">
-  <div class="modal-dialog modal-dialog-centered" role="document">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">Insumos Asignados</h5>
         <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
       </div>
       <div class="modal-body">
+
+        <!-- 
+        <div class="row">
+          <div class="col-3">
+            <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical"
+              *ngFor="let dato of lstDatos">
+              <a class="nav-link" id="{{dato.nombre|lowercase}}" data-toggle="pill" (click)="verDatos(dato)" role="tab"
+                aria-controls="v-pills-home" aria-selected="true">{{dato.nombre}}</a>
+            </div>
+          </div>
+          <div class="col-9">
+            <div class="tab-content" id="v-pills-tabContent" *ngFor="let val of lstDatos">
+
+              <div class="tab-pane fade show active" id="{{val.nombre|lowercase}}" role="tabpanel">
+                <br><br><br>
+                <div class="card">
+                  <div class="card-header">
+                    Quote
+                  </div>
+                  <div class="card-body">
+                    <blockquote class="blockquote mb-0">
+                      <p>A well-known quote, contained in a blockquote element.</p>
+                      <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite>
+                      </footer>
+                    </blockquote>
+                  </div>
+                </div>
+                <br><br><br>
+              </div>
+              
+              
+            </div>
+          </div>
+        </div> -->
+
+
         <ul class="list-group list-group-flush" *ngFor="let dato of lstDatos">
           <li class="list-group-item d-flex justify-content-between align-items-center">
             <h6>{{ dato.nombre }}</h6>
             <span class="badge badge-danger">{{ dato.cantidad }}</span>
           </li>
         </ul>
+
       </div>
     </div>
   </div>

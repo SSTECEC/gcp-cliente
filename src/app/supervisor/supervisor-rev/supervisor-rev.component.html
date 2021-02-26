@@ -12,12 +12,12 @@
 
             <div class="row">
                 <div class="col-md-8">
-                    <h4 class="page-title">Listado de Reservas</h4>
+                    <h4 class="page-title">Reserva</h4>
                 </div>
                 <div class="col-md-4" style="text-align: right !important;">
                     <ul class="breadcrumbs">
                         <li><a [routerLink]="['/administrador/listar/reserva']">GCP</a></li>
-                        <li><span>Lista Reservas</span></li>
+                        <li><span>Reservar</span></li>
                     </ul>
                 </div>
             </div>
@@ -116,8 +116,8 @@
                                                 </div>
                                             </div>
                                         </div>
-
-                                        <!-- <div class="col-md-2">
+<!-- 
+                                        <div class="col-md-2">
                                             <div class="form-group">
                                                 <label><b>Capacidad</b></label>
                                                 <div class="input-group">
@@ -165,7 +165,7 @@
 
                                 </div>
                             </div>
-
+                            
                             <div class="d-flex justify-content-center">
                                 <pagination-controls previousLabel="Anterior" nextLabel="Siguiente" responsive="true" (pageChange)="p = $event"></pagination-controls>
                               </div>
@@ -206,7 +206,7 @@
                                     <div class="form-row">
                                         <div class="col-md-10"></div>
                                         <div class="col-md-2">
-                                            <button type="button" class="btn btn-block btn btn-outline-warning" (click)="cancelarReserva(reserva)">Cancelar&nbsp;<i class="fa fa-times"></i></button>
+                                            <button type="button" class="btn btn-block btn btn-outline-success" (click)="crearReserva(reserva)">Reservar&nbsp;<i class="fa fa-check-square-o"></i></button>
                                         </div>
                                     </div>
                                 </div>

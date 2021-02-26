@@ -194,6 +194,7 @@ export class InsumosComponent implements OnInit {
     this.connection.get("listarDetalleInsumos?idInsumo=" + idInsumo, " ").subscribe(
       (res: any) => {
         this.spinner.hide();
+        console.log(res);
         this.lstDatosDetalleInsumos = res;
         this.dtsDatosDetalleInsumos = this.lstDatosDetalleInsumos.slice()
         this.gridData = this.lstDatosDetalleInsumos;

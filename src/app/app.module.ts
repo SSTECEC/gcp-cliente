@@ -36,6 +36,8 @@ import { DateInputsModule } from '@progress/kendo-angular-dateinputs';
 import { ProfesorRevComponent } from './profesor/profesor-rev/profesor-rev.component';
 import { ProfesorRevListComponent } from './profesor/profesor-rev-list/profesor-rev-list.component';
 import { InicioComponent } from './supervisor/inicio/inicio.component';
+import { SupervisorRevComponent } from './supervisor/supervisor-rev/supervisor-rev.component';
+import { SupervisorRevListComponent } from './supervisor/supervisor-rev-list/supervisor-rev-list.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +56,9 @@ import { InicioComponent } from './supervisor/inicio/inicio.component';
     GestionReservaComponent,
     ProfesorRevComponent,
     ProfesorRevListComponent,
-    InicioComponent
+    InicioComponent,
+    SupervisorRevComponent,
+    SupervisorRevListComponent
   ],
   imports: [
     BrowserModule,

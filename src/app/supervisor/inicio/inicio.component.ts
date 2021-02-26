@@ -28,8 +28,6 @@ export class InicioComponent implements OnInit {
       (res: any) => {
         this.spinner.hide();
         if (res.length != 0) {
-          var canvas1 = document.getElementById('firstChart');
-          var ctx1 = canvas1.getContext('2d');
           var dataSet = {
             x: [],
             y: [],
@@ -40,7 +38,7 @@ export class InicioComponent implements OnInit {
             dataSet.y.push(dato.listado.f2);
             dataSet.z.push(this.colorAleatorio());
           }
-          this.generarGraficoReservas(ctx1, 'doughnut', dataSet.x, dataSet.y, dataSet.z);
+          this.generarGraficoReservas('doughnut', dataSet.x, dataSet.y, dataSet.z);
           this.listarInsumosJson();
         }
       },
@@ -57,8 +55,6 @@ export class InicioComponent implements OnInit {
     this.connection.get("listarInsumosJson", "").subscribe(
       (res: any) => {
         this.spinner.hide();
-        var canvas2 = document.getElementById('secondChart');
-        var ctx2 = canvas2.getContext('2d');
         var dataSet = {
           x: [],
           y: [],
@@ -69,7 +65,7 @@ export class InicioComponent implements OnInit {
           dataSet.y.push(dato.listado.f2);
           dataSet.z.push(this.colorAleatorio());
         }
-        this.generarGraficoInsumos(ctx2, 'bar', dataSet.x, dataSet.y, dataSet.z);
+        this.generarGraficoInsumos('bar', dataSet.x, dataSet.y, dataSet.z);
         this.listarReservasUsuariosJson();
       },
       err => {
@@ -86,9 +82,6 @@ export class InicioComponent implements OnInit {
       (res: any) => {
         this.spinner.hide();
         if (res.length != 0) {
-          var canvas3 = document.getElementById('thirdChart');
-        var ctx3 = canvas3.getContext('2d');
-
         var dataSet = {
           x: [],
           y: [],
@@ -101,7 +94,7 @@ export class InicioComponent implements OnInit {
           dataSet.z.push(this.colorAleatorio());
         }
 
-        this.generarGraficoReservas(ctx3, 'pie', dataSet.x, dataSet.y, dataSet.z);
+        this.generarGraficoReservasUsuarios('pie', dataSet.x, dataSet.y, dataSet.z);
         }
       },
       err => {
@@ -112,121 +105,11 @@ export class InicioComponent implements OnInit {
     );
   }
 
-  public iniciarGraficas() {
-
-    this.spinner.show();
-
-    var canvas1 = document.getElementById('firstChart');
-    var canvas2 = document.getElementById('secondChart');
-    var canvas3 = document.getElementById('thirdChart');
+  public generarGraficoReservas(tipo: any, etiquetas: any, datos: any, coloresBackGround: any) {
+    var canvas1 = <HTMLCanvasElement> document.getElementById('firstChart');
     var ctx1 = canvas1.getContext('2d');
-    var ctx2 = canvas2.getContext('2d');
-    var ctx3 = canvas3.getContext('2d');
 
     var myChart = new Chart(ctx1, {
-      type: 'pie',
-      data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-        datasets: [{
-          label: '# of Votes',
-          data: [12, 19, 3, 5, 2, 3],
-          backgroundColor: [
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
-            'rgba(255, 206, 86, 0.2)',
-            'rgba(75, 192, 192, 0.2)',
-            'rgba(153, 102, 255, 0.2)',
-            'rgba(255, 159, 64, 0.2)'
-          ],
-          borderColor: [
-            'rgba(255, 99, 132, 1)',
-            'rgba(54, 162, 235, 1)',
-            'rgba(255, 206, 86, 1)',
-            'rgba(75, 192, 192, 1)',
-            'rgba(153, 102, 255, 1)',
-            'rgba(255, 159, 64, 1)'
-          ],
-          borderWidth: 1
-        }]
-      }
-    });
-
-    var myChart = new Chart(ctx2, {
-      type: 'bar',
-      data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-        datasets: [{
-          label: '# of Votes',
-          data: [12, 19, 3, 5, 2, 3],
-          backgroundColor: [
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
-            'rgba(255, 206, 86, 0.2)',
-            'rgba(75, 192, 192, 0.2)',
-            'rgba(153, 102, 255, 0.2)',
-            'rgba(255, 159, 64, 0.2)'
-          ],
-          borderColor: [
-            'rgba(255, 99, 132, 1)',
-            'rgba(54, 162, 235, 1)',
-            'rgba(255, 206, 86, 1)',
-            'rgba(75, 192, 192, 1)',
-            'rgba(153, 102, 255, 1)',
-            'rgba(255, 159, 64, 1)'
-          ],
-          borderWidth: 1
-        }]
-      },
-      options: {
-        scales: {
-          yAxes: [{
-            ticks: {
-              beginAtZero: true
-            }
-          }]
-        }
-      }
-    });
-
-    var myChart = new Chart(ctx3, {
-      type: 'radar',
-      data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-        datasets: [{
-          label: '# of Votes',
-          data: [12, 19, 3, 5, 2, 3],
-          backgroundColor: [
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
-            'rgba(255, 206, 86, 0.2)',
-            'rgba(75, 192, 192, 0.2)',
-            'rgba(153, 102, 255, 0.2)',
-            'rgba(255, 159, 64, 0.2)'
-          ],
-          borderColor: [
-            'rgba(255, 99, 132, 1)',
-            'rgba(54, 162, 235, 1)',
-            'rgba(255, 206, 86, 1)',
-            'rgba(75, 192, 192, 1)',
-            'rgba(153, 102, 255, 1)',
-            'rgba(255, 159, 64, 1)'
-          ],
-          borderWidth: 1
-        }]
-      }
-    });
-
-
-
-
-    this.spinner.hide();
-
-
-  }
-
-  public generarGraficoReservas(ctx: any, tipo: any, etiquetas: any, datos: any, coloresBackGround: any) {
-
-    var myChart = new Chart(ctx, {
       type: tipo,
       data: {
         labels: etiquetas,
@@ -242,9 +125,33 @@ export class InicioComponent implements OnInit {
 
   }
 
-  public generarGraficoInsumos(ctx: any, tipo: any, etiquetas: any, datos: any, coloresBackGround: any) {
+  public generarGraficoReservasUsuarios(tipo: any, etiquetas: any, datos: any, coloresBackGround: any) {
 
-    var myChart = new Chart(ctx, {
+    var canvas3 = <HTMLCanvasElement> document.getElementById('thirdChart');
+    var ctx3 = canvas3.getContext('2d');
+
+    var myChart = new Chart(ctx3, {
+      type: tipo,
+      data: {
+        labels: etiquetas,
+        datasets: [{
+          label: etiquetas,
+          data: datos,
+          backgroundColor: coloresBackGround,
+          borderColor: coloresBackGround,
+          borderWidth: 1
+        }]
+      },
+    });
+
+  }
+
+  public generarGraficoInsumos(tipo: any, etiquetas: any, datos: any, coloresBackGround: any) {
+
+    var canvas2 = <HTMLCanvasElement> document.getElementById('secondChart');
+    var ctx2 = canvas2.getContext('2d');
+
+    var myChart = new Chart(ctx2, {
       type: tipo,
       data: {
         labels: etiquetas,

@@ -65,7 +65,7 @@
                                                     (click)="resetearPassword(usuario.idUsuario)"><i
                                                         class="fas fa-key fa-lg"></i></button>
                                             </td>
-                                            <td *ngIf="usuario.rol != 'RECTOR' ">
+                                            <td *ngIf="usuario.rol == 'PROFESOR' ">
                                                 <button class="btn btn-danger btn-block"
                                                     (click)="eliminarUsuario(usuario.idUsuario)">
                                                     <i class="fas fa-trash-alt fa-lg"></i></button>
@@ -117,7 +117,7 @@
  
                 <div class="form-group">
                     <label>Rol</label>
-                    <input type="text" class="form-control" value="USUARIO" disabled>
+                    <input type="text" class="form-control" value="PROFESOR" disabled>
                 </div>
 
                 <br><br>
@@ -176,8 +176,7 @@
                         <button type="button" class="btn btn-secondary btn-block" data-dismiss="modal">Cancelar</button>
                     </div>
                     <div class="col-3">
-                        <button type="button" class="btn btn-success btn-block" (click)="actualizarUsuario()">Actualizar
-                            Usuario</button>
+                        <button type="button" class="btn btn-success btn-block" (click)="actualizarUsuario()">Actualizar</button>
                     </div>
                 </div>
                 <br>

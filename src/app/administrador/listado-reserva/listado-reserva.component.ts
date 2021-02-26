@@ -80,7 +80,7 @@ export class ListadoReservaComponent implements OnInit {
   }
 
   public listarPagoParametros() {
-    var cadena = ' "idUsuario" != 0  ';
+    var cadena = ' AND "idUsuario" != 0  ';
     var fmrParametros = this.fmrParametros;
     var globales = this.globales;
     $("input:checkbox[name=parametro]:checked").each(function () {
