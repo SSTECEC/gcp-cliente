@@ -38,7 +38,7 @@ export class SupervisorRevListComponent implements OnInit {
     this.usuario = this.session.obtenerDatos();
     this.listadoCompletoReservacionesUsuario();
   }
-
+ 
   public listadoCompletoReservacionesUsuario(){
     this.spinner.show();
       this.connection.get("listadoCompletoReservacionesUsuario?idUsuario="+this.usuario.idUsuario, "").subscribe(

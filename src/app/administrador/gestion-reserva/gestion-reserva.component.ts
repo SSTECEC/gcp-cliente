@@ -282,7 +282,6 @@ export class GestionReservaComponent implements OnInit {
   public validarInformacionArchivo(data: any) {
 
     for (let registro of data) {
-console.log(registro);
       if (registro.CedulaResponsable != undefined) {
         this.connection.get("listarUsuarioEspecifico?identificacion=" + registro.CedulaResponsable.toString(), "").subscribe(
           (res: any) => {
@@ -334,7 +333,8 @@ console.log(registro);
       (res: any) => {
         if(res){
           this.globales.alertaSinTiempo("Transacción Exitosa", "Se ha registrado todas las reservas", "success");
-          //window.location.reload();
+          this.spinner.hide();
+          window.location.reload();
         }
       },
       err => {
