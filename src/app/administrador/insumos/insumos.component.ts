@@ -3,8 +3,8 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { GlobalsService } from '../../method/globals/globals.service';
 import { ConnectionService } from '../../service/connection/connection.service';
 import { SessionService } from '../../service/session/session.service';
-import { process, State } from '@progress/kendo-data-query';
-import { GridComponent, GridDataResult, DataStateChangeEvent, DataBindingDirective } from '@progress/kendo-angular-grid';
+import { process } from '@progress/kendo-data-query';
+import { DataBindingDirective } from '@progress/kendo-angular-grid';
 
 declare var $: any;
 @Component({
@@ -34,15 +34,9 @@ export class InsumosComponent implements OnInit {
 
   public numeroSerieTotal: any;
 
-
   public lstDatosDetalleInsumos = [];
   public dtsDatosDetalleInsumos: any;
-  /* 
-  public state: State = { skip: 0, take: 5 };
-  
-  public gridData: GridDataResult = process(this.lstDatosDetalleInsumos, this.state);
-  public gridView: any[]; */
-
+ 
   public globales: GlobalsService = new GlobalsService();
   constructor(public session: SessionService, private spinner: NgxSpinnerService, public connection: ConnectionService) { }
 
@@ -118,7 +112,6 @@ export class InsumosComponent implements OnInit {
   }
 
   public guadarDetalleInsumo(idInsumo: any, query: any) {
-    console.log('res')
     this.spinner.show();
     this.connection.post("guardarInsumoDetalles", JSON.stringify(query), "").subscribe(
       (res: any) => {
@@ -183,7 +176,6 @@ export class InsumosComponent implements OnInit {
 
   public verdetallesInsumos() {
     $("#ModalTipo").modal("show");
-
   }
 
   public listarDetalleInsumos(insumoSeleccionado: any) {
@@ -194,7 +186,7 @@ export class InsumosComponent implements OnInit {
     this.connection.get("listarDetalleInsumos?idInsumo=" + idInsumo, " ").subscribe(
       (res: any) => {
         this.spinner.hide();
-        console.log(res);
+        
         this.lstDatosDetalleInsumos = res;
         this.dtsDatosDetalleInsumos = this.lstDatosDetalleInsumos.slice()
         this.gridData = this.lstDatosDetalleInsumos;
@@ -285,7 +277,6 @@ export class InsumosComponent implements OnInit {
     return anio + separador + mes + separador + dia;
   }
 
-
   public onFilter(inputValue: string): void {
     this.gridView = process(this.gridData, {
       filter: {
@@ -302,7 +293,6 @@ export class InsumosComponent implements OnInit {
 
     this.dataBinding.skip = 0;
   }
-
 
   public abrirModalEditarInsumo(dato: any) {
     this.formulario = dato;

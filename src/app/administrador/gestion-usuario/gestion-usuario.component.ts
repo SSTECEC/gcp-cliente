@@ -26,6 +26,8 @@ export class GestionUsuarioComponent implements OnInit {
   }
 
   public foto: any = '';
+  public foto2: any = '';
+  public fotoBase46: any = '';
 
   public globales: GlobalsService = new GlobalsService();
   constructor(public session: SessionService, private spinner: NgxSpinnerService, private connection: ConnectionService) {}
@@ -54,9 +56,21 @@ export class GestionUsuarioComponent implements OnInit {
   }
 
   public crearUsuario() {
-    if(this.globales.validarModalCrearUsuario(this.fmrUsuario)){
+
+    if(this.globales.validarModalCrearUsuario(this.fmrUsuario,this.foto)){
+
+      var datos : any = {
+        usuario : this.fmrUsuario.usuario,
+        identificacion: this.fmrUsuario.identificacion,
+        email: this.fmrUsuario.email,
+        contrasena: this.fmrUsuario.password,
+        foto:this.fotoBase46,
+        estado:1,
+        rol:3
+      }
+      
       this.spinner.show();
-      this.connection.post("guardarUsuario", this.fmrUsuario, "").subscribe(
+      this.connection.post("guardarUsuario", datos, "").subscribe(
         (res: any) => {
           
           if (res) {
@@ -71,6 +85,7 @@ export class GestionUsuarioComponent implements OnInit {
           this.globales.notificacion("Error con el servicio de datos", "error", "top");
         }
       );
+
     }  
   }  
 
@@ -82,13 +97,13 @@ export class GestionUsuarioComponent implements OnInit {
         'usuario': this.fmrUsuario.usuario,
         'identificacion': this.fmrUsuario.identificacion,
         'email': this.fmrUsuario.email,
+        'foto': this.fotoBase46,
         'idUsuario': this.fmrUsuario.idUsuario
       }
 
       this.spinner.show();
       this.connection.post("actualizarUsuario", datos, "").subscribe(
         (res: any) => {
-          
           if (res) {
             this.globales.notificacion("Usuario Actualizado Exitosamente", "success", "top");
           }
@@ -105,19 +120,17 @@ export class GestionUsuarioComponent implements OnInit {
         
   }
 
-  public resetearPassword(id: any) {
-
-    var datos: any = {
-      contrasena: 'Qw12345678',
-      idUsuario: id
+  public resetearPassword(usuarioSeleccionado: any) {
+    var valores: any = {
+      contrasena: usuarioSeleccionado.identificacion,
+      idUsuario: usuarioSeleccionado.idUsuario
     };
 
     this.spinner.show();
-    this.connection.post("resetearPassword", datos, '').subscribe(
+    this.connection.post("resetearPassword", valores, '').subscribe(
       (res: any) => {
-        
         if (res) {
-          this.globales.alertaSinTiempo("Exito", 'Contraseña Reseteada Exitosamente <br> Su nueva contraseña es: <br> <b>Qw12345678</b>', 'success');
+          this.globales.alertaSinTiempo("Exito", 'Contraseña Reseteada Exitosamente <br> Su nueva contraseña es la cédula del profesor.', 'success');
         }
         this.spinner.hide();
       },
@@ -127,7 +140,6 @@ export class GestionUsuarioComponent implements OnInit {
         this.globales.notificacion("Error con el servicio de datos", "error", "top");
       }
     );
-
   }
 
   public eliminarUsuario(id: any) {
@@ -161,6 +173,7 @@ export class GestionUsuarioComponent implements OnInit {
 
   public abrirModalActualizarUsuario(usuario: any) {
     this.fmrUsuario = usuario;
+    this.fotoBase46 = usuario.foto;
     $('#ModalActualizar').modal('show');
   }
 
@@ -172,6 +185,30 @@ export class GestionUsuarioComponent implements OnInit {
       email: '',
       password: ''
     }
+  }
+
+
+  public getImage(nombre:any) {
+    var files = $("#"+nombre).prop('files');
+    var reader = new FileReader();
+    var extension = files[0].type;
+    var aux = extension.split("/");
+    if(aux[0] != "image"){
+      this.globales.alerta("Información","Solo puede ingresar imágenes","error");
+      this.foto = "";
+      this.foto2 = "";
+    }else{
+      if (files.length > 0) {
+        reader.readAsDataURL(files[0]);
+        reader.onload = () => {
+          var base64Large: any = reader.result;
+          this.fotoBase46 = base64Large;
+        };
+        reader.onerror = function (error) {
+          console.log('Error: ', error);
+        };
+      }
+    }   
   }
 
 }

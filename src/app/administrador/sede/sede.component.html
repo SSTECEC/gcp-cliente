@@ -30,8 +30,9 @@
                                 <div class="col-4"></div>
                                 <div class="col-4"></div>
                                 <div class="col-4">
-                                    <button type="button" class="btn btn-block btn-success" data-toggle="modal"
-                                        data-target="#ModalSede">Crear Sede &nbsp;&nbsp;<i class="fas fa-building"></i></button>
+                                    <button type="button" class="btn btn-block btn-success" (click)="abrirModalCrearSede()">
+                                        Crear Sede &nbsp;&nbsp;<i class="fas fa-building"></i>
+                                    </button>
                                 </div>
                             </div>
                             <br><br>
@@ -125,11 +126,11 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label>N° de Secciones</label><br>
-                        <small>Las secciones se representarán en letras al momento de crearlas (<span
-                                class="text-primary">1 = A</span>; <span class="text-danger">2 = A y B</span>; <span
-                                class="text-success">3 = A, B y C</span>; etc.)</small>
-                        <select class="form-control" [(ngModel)]="fmrSedeDetalle.secciones">
+                        <label>Cantidad de Espacios por Piso</label><br>
+                        <small>Los espacios se representarán con un código único al momento de su creación.</small>
+                        <input type="text" class="form-control" placeholder="Ingresar la cantidad de espacios por piso" [(ngModel)]="fmrSedeDetalle.secciones"
+                        (keyup)="fmrSedeDetalle.secciones = globales.formatoCampo(fmrSedeDetalle.secciones, '0123456789', 3, 2)">
+                        <!-- <select class="form-control" >
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
@@ -140,7 +141,7 @@
                             <option value="8">8</option>
                             <option value="9">9</option>
                             <option value="10">10</option>
-                        </select>
+                        </select> -->
                     </div>
                 </div>
             </div>

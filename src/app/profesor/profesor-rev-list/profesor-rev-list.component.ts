@@ -106,14 +106,8 @@ export class ProfesorRevListComponent implements OnInit {
           globales.notificacion('Seleccione la sede', 'info', 'top');
         }
       } if (parametro == 4) {
-        if (fmrParametros.reserva != 0) {
-          cadena += ' AND "idReserva"=' + fmrParametros.reserva +' '
-        } else {
-          globales.notificacion('Ingresar el número de reserva', 'info', 'top');
-        }
-      } if (parametro == 5) {
         if (fmrParametros.capacidad) {
-          cadena += ' AND "CAPACIDAD"= ' + fmrParametros.capacidad + '';
+          cadena += " AND capacidad >= '" + fmrParametros.capacidad + "'";
         } else {
           globales.notificacion('Ingresar la capacidad', 'info', 'top');
         }
@@ -122,7 +116,6 @@ export class ProfesorRevListComponent implements OnInit {
     var query : any = {
       datos : cadena 
     }
-    console.log(query);
     this.listadoReservasFiltros(query);
   }
 
@@ -130,7 +123,7 @@ export class ProfesorRevListComponent implements OnInit {
     this.spinner.show();
       this.connection.post("listadoReservasFiltros", query,"").subscribe(
         (res: any) => {
-          console.log(res);
+          
           this.spinner.hide();
           this.lstReservas = res;
         },

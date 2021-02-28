@@ -122,14 +122,8 @@ export class ProfesorRevComponent implements OnInit {
           globales.notificacion('Seleccione la sede', 'info', 'top');
         }
       } if (parametro == 4) {
-        if (fmrParametros.reserva != 0) {
-          cadena += ' AND "idReserva"=' + fmrParametros.reserva +' '
-        } else {
-          globales.notificacion('Ingresar el número de reserva', 'info', 'top');
-        }
-      } if (parametro == 5) {
         if (fmrParametros.capacidad) {
-          cadena += ' AND "CAPACIDAD"= ' + fmrParametros.capacidad + '';
+          cadena += " AND capacidad >= '" + fmrParametros.capacidad + "'";
         } else {
           globales.notificacion('Ingresar la capacidad', 'info', 'top');
         }

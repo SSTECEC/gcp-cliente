@@ -61,7 +61,7 @@
                       <td style="vertical-align:middle !important;">{{ dato.nombreDepartamento }}</td>
                       <td style="vertical-align:middle !important;">{{ dato.tipoDepartamento }}</td>
                       <td style="vertical-align:middle !important;">
-                        <button class="btn btn-primary" (click)="listarDepartamentoInsumosDetalle(dato)">
+                        <button class="btn btn-primary" (click)="listarDetalleInsumosDepartamento(dato)">
                           <i class="far fa-list-alt fa-lg"></i>
                         </button>
                       </td>
@@ -228,5 +228,60 @@
         <button type="button" class="btn btn-primary" (click)="actualizarEstadoDepartamentoInsumo()">Actualizar</button>
       </div>
     </div>
+  </div>
+</div>
+
+<div class="modal fade" id="ModalTipo">
+  <div class="modal-dialog modal-dialog-centered" role="document" style="min-width: 1400px !important;">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title">Gestión Insumos</h5>
+              <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+          </div>
+          <div class="modal-body">
+
+              <kendo-grid [kendoGridBinding]="gridView" [pageSize]="10" [pageable]="true" [sortable]="true" [resizable]="true">
+
+                  <ng-template kendoGridToolbarTemplate>
+                      <input class="form-control" kendoTextBox  placeholder="Ingrese el código del insumo..." (input)="onFilter($event.target.value)" (keyup)="$event.target.value = globales.formatoCampo($event.target.value, 'abcdefghijklmnñopqrstuvwxyzáéíóúÁÉÍÓÚABCDEFGHIJKLMNÑOPQRSTUVWXYZ0123456789-. ', 100, 1)" />
+                  </ng-template>
+
+                  <kendo-grid-column headerClass="text-center" field="nombre" title="Departamento">
+                  </kendo-grid-column>
+
+                  <kendo-grid-column headerClass="text-center" field="departamento" title="Código Departamento">
+                  </kendo-grid-column>                  
+
+                  <kendo-grid-column headerClass="text-center" field="insumo" title="Nombre">
+                  </kendo-grid-column>
+
+                  <kendo-grid-column headerClass="text-center" field="codigo" title="Código Insumo">
+                  </kendo-grid-column>
+
+                  <kendo-grid-column headerClass="text-center" class="text-center" width="140" field="asignacion" title="Asignación">
+                  </kendo-grid-column>
+
+                  <kendo-grid-column headerClass="text-center" width="110" title="Habilitar">
+                      <ng-template kendoGridCellTemplate let-dataItem>
+                          <button *ngIf="dataItem.estado == 2" class="btn btn-success btn-block"
+                              (click)="actualizarEstadoDetalleInsumo(dataItem)">
+                              <i class="fas fa-check fa-lg"></i>
+                          </button>
+                      </ng-template>
+                  </kendo-grid-column>    
+
+                  <kendo-grid-column headerClass="text-center" width="110" title="Deshabilitar">
+                      <ng-template kendoGridCellTemplate let-dataItem>
+                          <button *ngIf="dataItem.estado == 1" class="btn btn-danger btn-block"
+                              (click)="actualizarEstadoDetalleInsumo(dataItem)">
+                              <i class="fas fa-times fa-lg"></i>
+                          </button>
+                      </ng-template>
+                  </kendo-grid-column>
+
+                 
+              </kendo-grid>
+          </div>
+      </div>
   </div>
 </div>

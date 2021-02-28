@@ -62,7 +62,7 @@
                                             </td>
                                             <td>
                                                 <button class="btn btn-warning btn-block"
-                                                    (click)="resetearPassword(usuario.idUsuario)"><i
+                                                    (click)="resetearPassword(usuario)"><i
                                                         class="fas fa-key fa-lg"></i></button>
                                             </td>
                                             <td *ngIf="usuario.rol == 'PROFESOR' ">
@@ -114,6 +114,12 @@
                     <label>Contraseña</label>
                     <input type="password" class="form-control" [(ngModel)]="fmrUsuario.password" name="fmrUsuario.password">
                 </div>
+
+                <div class="form-group">
+                    <label>Imagen</label><!-- 
+                    <input type="password" class="form-control" [(ngModel)]="fmrUsuario.password" name="fmrUsuario.password"> -->
+                    <input type="file" id="Archivo" class="form-control" accept="image/*" [(ngModel)]="foto" (change)="getImage('Archivo')">
+                </div>
  
                 <div class="form-group">
                     <label>Rol</label>
@@ -150,36 +156,52 @@
 
             <div class="modal-body">
 
-                <div class="form-group">
-                    <label>Nombre Usuario</label>
-                    <input type="text" class="form-control" [(ngModel)]="fmrUsuario.usuario" name="fmrUsuario.usuario"
-                    (keyup)="fmrUsuario.usuario = globales.formatoCampo(fmrUsuario.usuario, 'abcdefghijklmnñopqrstuvwxyzáéíóúÁÉÍÓÚABCDEFGHIJKLMNÑOPQRSTUVWXYZ ', 100, 2)">
-                </div>
-
-                <div class="form-group">
-                    <label>Número de Cédula</label>
-                    <input type="text" class="form-control" [(ngModel)]="fmrUsuario.identificacion" name="fmrUsuario.identificacion"
-                    (keyup)="fmrUsuario.identificacion = globales.formatoCampo(fmrUsuario.identificacion, '0123456789', 10, 1)">
-                </div>
-
-                <div class="form-group">
-                    <label>Email</label>
-                    <input type="email" class="form-control" [(ngModel)]="fmrUsuario.email" name="fmrUsuario.email"
-                        required>
-                </div>
-
-                <br><br>
-
-                <div class="form-row">
-                    <div class="col-6"></div>
-                    <div class="col-3">
-                        <button type="button" class="btn btn-secondary btn-block" data-dismiss="modal">Cancelar</button>
+                <div class="row">
+                    <div class="col-md-5" style="text-align: center !important; vertical-align: center !important;">
+                        <br><br><br>
+                        <img src="{{fotoBase46}}" class="rounded" alt="Perfil">
                     </div>
-                    <div class="col-3">
-                        <button type="button" class="btn btn-success btn-block" (click)="actualizarUsuario()">Actualizar</button>
+                    <div class="col-md-7">
+                        <div class="form-group">
+                            <label>Nombre Usuario</label>
+                            <input type="text" class="form-control" [(ngModel)]="fmrUsuario.usuario" name="fmrUsuario.usuario"
+                            (keyup)="fmrUsuario.usuario = globales.formatoCampo(fmrUsuario.usuario, 'abcdefghijklmnñopqrstuvwxyzáéíóúÁÉÍÓÚABCDEFGHIJKLMNÑOPQRSTUVWXYZ ', 100, 2)">
+                        </div>
+        
+                        <div class="form-group">
+                            <label>Número de Cédula</label>
+                            <input type="text" class="form-control" [(ngModel)]="fmrUsuario.identificacion" name="fmrUsuario.identificacion"
+                            (keyup)="fmrUsuario.identificacion = globales.formatoCampo(fmrUsuario.identificacion, '0123456789', 10, 1)">
+                        </div>
+        
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" class="form-control" [(ngModel)]="fmrUsuario.email" name="fmrUsuario.email"
+                                required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Imagen</label><!-- 
+                            <input type="password" class="form-control" [(ngModel)]="fmrUsuario.password" name="fmrUsuario.password"> -->
+                            <input type="file" id="Archivo2" class="form-control" accept="image/*" [(ngModel)]="foto2" (change)="getImage('Archivo2')">
+                        </div>
+        
+                        <br><br>
+        
+                        <div class="form-row">
+                            <div class="col-6"></div>
+                            <div class="col-3">
+                                <button type="button" class="btn btn-secondary btn-block" data-dismiss="modal">Cancelar</button>
+                            </div>
+                            <div class="col-3">
+                                <button type="button" class="btn btn-success btn-block" (click)="actualizarUsuario()">Actualizar</button>
+                            </div>
+                        </div>
+                        <br>
                     </div>
                 </div>
-                <br>
+
+                
             </div>
 
         </div>

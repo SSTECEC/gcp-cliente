@@ -26,7 +26,7 @@ export class DepartamentoComponent implements OnInit {
     codigo: "",
     capacidad: "",
     nombreDepartamento: "",
-    idTipoDepartamento:1,
+    idTipoDepartamento: 1,
     idSedeDetalle: 0,
     idSede: 0,
   }

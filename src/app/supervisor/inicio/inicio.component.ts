@@ -27,6 +27,9 @@ export class InicioComponent implements OnInit {
     this.connection.get("listarReservasTotalesJson", "").subscribe(
       (res: any) => {
         this.spinner.hide();
+
+        var coloresPredefinidos = ["rgba(173,43,0,0.7)","rgba(15,122,29,0.7)"]
+
         if (res.length != 0) {
           var dataSet = {
             x: [],
@@ -38,7 +41,7 @@ export class InicioComponent implements OnInit {
             dataSet.y.push(dato.listado.f2);
             dataSet.z.push(this.colorAleatorio());
           }
-          this.generarGraficoReservas('doughnut', dataSet.x, dataSet.y, dataSet.z);
+          this.generarGraficoReservas('doughnut', dataSet.x, dataSet.y, coloresPredefinidos);
           this.listarInsumosJson();
         }
       },
@@ -179,7 +182,7 @@ export class InicioComponent implements OnInit {
   }
 
   public colorAleatorio() {
-    var color = "rgba(" + (Math.floor(Math.random() * (255 - 1)) + 1) + "," + (Math.floor(Math.random() * (255 - 1)) + 1) + "," + (Math.floor(Math.random() * (255 - 1)) + 1) + ",0.3)";
+    var color = "rgba(" + (Math.floor(Math.random() * (255 - 1)) + 1) + "," + (Math.floor(Math.random() * (255 - 1)) + 1) + "," + (Math.floor(Math.random() * (255 - 1)) + 1) + ",0.6)";
     return color;
   }
 

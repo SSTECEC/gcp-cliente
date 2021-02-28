@@ -26,7 +26,7 @@ export class AppComponent implements OnInit {
     }
     function resetTimer() {
       clearTimeout(t);
-      t = setTimeout(logout, 900000) //5 minutos de inactividad, tiempo en ms
+      t = setTimeout(logout, 900000) //15 minutos de inactividad, tiempo en ms 
     }
   }
 

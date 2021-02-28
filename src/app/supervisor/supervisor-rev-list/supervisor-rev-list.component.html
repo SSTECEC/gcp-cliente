@@ -105,14 +105,14 @@
 
                                         <div class="col-md-3">
                                             <div class="form-group">
-                                                <label><b>Número Reserva</b></label>
+                                                <label><b>Capacidad</b></label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text bg-light text-white seleccion">
                                                             <input type="checkbox" name="parametro" value="4">
                                                         </span>
                                                     </div>
-                                                    <input type="number" class="form-control form-control-sm" min="0" [(ngModel)]="fmrParametros.reserva">
+                                                    <input type="number" class="form-control form-control-sm" min="0" [(ngModel)]="fmrParametros.capacidad">
                                                 </div>
                                             </div>
                                         </div>
@@ -197,7 +197,7 @@
                                         <div class="col-md-3"><span><b>Departamento: </b> {{ reserva.TIPODEPARTAMENTO }}</span></div>
                                         <div class="col-md-3"><span><b>Nombre: </b> {{ reserva.NOMBREDEPARTAMENTO }}</span></div>
                                         <div class="col-md-3"><span><b>Código: </b> {{ reserva.CODIGODEPARTAMENTO }}</span></div>
-                                        <div class="col-md-3"><span><b>Capacidad: </b> {{ reserva.CAPACIDAD }}</span></div>
+                                        <div class="col-md-3"><span><b>Capacidad: </b> {{ reserva.capacidad }}</span></div>
                                         <div *ngIf="reserva.idCatalogoEstado == 2"  class="col-md-6"><span><b>Responsable: </b> {{ reserva.RESPONSABLE }}</span></div>
                                         <div *ngIf="reserva.idCatalogoEstado == 2"  class="col-md-3"><span><b>Cargo: </b> {{ reserva.CARGO }}</span></div>
                                         <div *ngIf="reserva.idCatalogoEstado == 2"  class="col-md-3"><span><b>Correo Electónico: </b> {{ reserva.EMAIL }}</span></div>

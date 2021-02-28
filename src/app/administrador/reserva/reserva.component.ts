@@ -3,7 +3,6 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { GlobalsService } from '../../method/globals/globals.service';
 import { ConnectionService } from '../../service/connection/connection.service';
 import { SessionService } from '../../service/session/session.service';
-import { ListadoReservaComponent } from '../listado-reserva/listado-reserva.component';
 
 declare var $: any;
 declare var moment: any;
@@ -124,14 +123,8 @@ export class ReservaComponent implements OnInit {
           globales.notificacion('Seleccione la sede', 'info', 'top');
         }
       } if (parametro == 4) {
-        if (fmrParametros.reserva != 0) {
-          cadena += ' AND "idReserva"=' + fmrParametros.reserva +' '
-        } else {
-          globales.notificacion('Ingresar el número de reserva', 'info', 'top');
-        }
-      } if (parametro == 5) {
         if (fmrParametros.capacidad) {
-          cadena += ' AND "CAPACIDAD"= ' + fmrParametros.capacidad + '';
+          cadena += " AND capacidad >= '" + fmrParametros.capacidad + "' ORDER BY capacidad";
         } else {
           globales.notificacion('Ingresar la capacidad', 'info', 'top');
         }

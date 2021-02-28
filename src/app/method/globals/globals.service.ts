@@ -7,7 +7,7 @@ export class GlobalsService {
 
   constructor() { }
 
-  public validarModalCrearSede(fmrSede: any, formularioDo:any){
+  public validarModalCrearSede(fmrSede: any, formularioDos:any){
     
     var validacion = true;
     if (fmrSede.nombre == ""){
@@ -22,12 +22,15 @@ export class GlobalsService {
     } else if (fmrSede.direccion.length <= 5) {
       validacion = false;
       this.notificacion("La dirección ingresada es muy corta", 'error', 'top' ); 
-    } else if (formularioDo.secciones == "") {
-      validacion = false;
-      this.notificacion("Ingresar el numero de secciones", 'error', 'top' ); 
-    } else if (formularioDo.pisos == "") {
+    } else if (formularioDos.pisos == "") {
       validacion = false;
       this.notificacion("Ingresar el numero de pisos", 'error', 'top' ); 
+    } else if (formularioDos.secciones == "" || formularioDos.secciones == 0 ) {
+      validacion = false;
+      this.notificacion("Ingresar el numero de espacios por piso", 'error', 'top' ); 
+    } else if (formularioDos.secciones > 100) {
+      validacion = false;
+      this.notificacion("La cantidad de espacios por piso no puede ser mayor a 100", 'error', 'top' ); 
     } else {
       validacion = true;
     }
@@ -55,7 +58,7 @@ export class GlobalsService {
     return validacion;
   }
 
-  public validarModalCrearUsuario(formulario: any){
+  public validarModalCrearUsuario(formulario: any, foto:any){
     var validacion = true;
     if (formulario.usuario == "") {
       validacion = false;
@@ -78,6 +81,9 @@ export class GlobalsService {
     } else if (formulario.password.length <= 5) {
       validacion = false;
       this.notificacion("La contraseña es demasiado corta", 'error', 'top' );
+    } else if (foto == "") {
+      validacion = false;
+      this.notificacion("Debe cargar una imagen para el profesor", 'error', 'top' );
     } else {
       validacion = true;
     }
@@ -212,7 +218,7 @@ export class GlobalsService {
       html: texto,
       icon: tipo,
       showConfirmButton: false,
-      timer: 30000,
+      timer: 2000,
       timerProgressBar: true
     })
   }
@@ -296,6 +302,17 @@ export class GlobalsService {
   public validarEmail(email:any) {
     var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
     return regex.test(email);
+  }
+
+  public generarCodigoEspacio(numero: any) {
+    var numeroCotizacion = "0";
+    switch (numero.toString().length) {
+      case 1: numeroCotizacion = "00" + numero; break;
+      case 2: numeroCotizacion = "0" + numero; break;
+      case 3: numeroCotizacion = "" + numero; break;
+      default: numeroCotizacion = numero.toString();
+    }
+    return numeroCotizacion;
   }
 
 }

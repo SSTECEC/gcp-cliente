@@ -62,7 +62,7 @@ export class SedeComponent implements OnInit {
       this.spinner.show();
       this.connection.post("guardarSede", this.fmrSede, "").subscribe(
         (res: any) => {
-          
+
           this.spinner.hide();
           this.guardarSedeDetalles(res.idSede);
           this.globales.notificacion("Sede almacenada exitosamente", "success", "top");
@@ -74,8 +74,6 @@ export class SedeComponent implements OnInit {
         }
       );
     }
-
-
   }
 
   public guardarSedeDetalles(idSede: any) {
@@ -87,7 +85,7 @@ export class SedeComponent implements OnInit {
       var seccion = 1;
       for (let i = 0; i < parseInt(this.fmrSedeDetalle.secciones); i++) {
         var aux2 = (seccion++);
-        candena += "(" + idSede + "," + aux1 + "," + " 'SECCIÓN " + this.globales.numeroALetra(aux2) + "'," + " 1 , 1" + "),";
+        candena += "(" + idSede + "," + aux1 + "," + " 'ESPACIO - " + this.globales.generarCodigoEspacio(aux2) + "'," + " 1 , 1" + "),";
       }
     }
 
@@ -110,18 +108,18 @@ export class SedeComponent implements OnInit {
   }
 
   public actualizarSede() {
-    
+
     if (this.globales.validarModalActualizarSede(this.fmrSede)) {
       var datos: any = {
         idSede: this.fmrSede.idSede,
         nombre: this.fmrSede.nombre,
         direccion: this.fmrSede.direccion
       }
-  
+
       this.spinner.show();
       this.connection.post("actualizarSede", datos, "").subscribe(
         (res: any) => {
-          
+
           if (res) {
             this.globales.notificacion("Sede Actualizada Exitosamente", "success", "top");
           }
@@ -141,7 +139,6 @@ export class SedeComponent implements OnInit {
 
     this.connection.get("listarSedeDetallesAll?idSede=" + sede.idSede, "").subscribe(
       (res: any) => {
-        console.log('verDetallesSede',res);
         this.lstSedesDetalles = res;
         $('#DetallesSede').modal('show');
       },
@@ -158,5 +155,23 @@ export class SedeComponent implements OnInit {
     $('#EditarSede').modal('show');
   }
 
+  public abrirModalCrearSede() {
+    this.limpiarSede();
+    $('#ModalSede').modal('show');
+  }
+
+  public limpiarSede() {
+    this.fmrSede = {
+      idSede: '',
+      nombre: '',
+      direccion:''
+    }
+
+    this.fmrSedeDetalle = {
+      sede: '',
+      secciones: '',
+      pisos: '',
+    }
+  }
 
 }

@@ -220,6 +220,26 @@ export class GestionReservaComponent implements OnInit {
     );
   }
 
+  public listarReservasExportacionDescarga(logReservaSeleccionado:any) {
+    var datos: any = {
+      fechaInicio: moment(logReservaSeleccionado.fechaInicioReservas).format('YYYY-MM-DD'),
+      fechaFin: moment(logReservaSeleccionado.fechaFinReservas).format('YYYY-MM-DD'),
+    }
+    this.spinner.show();
+    this.connection.post("listarReservasExportacionDescarga", datos, "").subscribe(
+      (res: any) => {
+        this.spinner.hide();
+        var nombreArchivo = 'Respaldo Reservas - Desde (' + datos.fechaInicio + ') - Hasta (' + datos.fechaFin + ')';
+        this.exportExcel(res, nombreArchivo);
+      },
+      err => {
+        console.log(err);
+        this.spinner.hide();
+        this.globales.notificacion("Error con el servicio de datos", "error", "top");
+      }
+    );
+  }
+
   public exportExcel(data: any, fileName: any) {
     const workBook = XLSX.utils.book_new();
     const workSheet = XLSX.utils.json_to_sheet(data);
@@ -247,6 +267,7 @@ export class GestionReservaComponent implements OnInit {
   }
 
   public uploadfile() {
+    this.spinner.show();
     let keys = this.dataArchivoSubido.shift();
     let resArr = this.dataArchivoSubido.map((e) => {
       let obj = {};
@@ -261,12 +282,10 @@ export class GestionReservaComponent implements OnInit {
   public validarInformacionArchivo(data: any) {
 
     for (let registro of data) {
-
-      if (registro.Responsable != undefined) {
-        this.spinner.show();
-        this.connection.get("listarUsuarioEspecifico?identificacion=" + registro.Responsable.toString(), "").subscribe(
+console.log(registro);
+      if (registro.CedulaResponsable != undefined) {
+        this.connection.get("listarUsuarioEspecifico?identificacion=" + registro.CedulaResponsable.toString(), "").subscribe(
           (res: any) => {
-            this.spinner.hide();
             if(res != null){
               this.connection.get("actualizarReserva?idUsuario=" + res.idUsuario + "&idReserva="+ registro.Reserva, "").subscribe(
                 (res: any) => {
@@ -291,7 +310,7 @@ export class GestionReservaComponent implements OnInit {
         );
       }
     }
-
+    this.spinner.hide();
     setTimeout(() => {
       this.actualizarLogReserva();      
     }, 5000);
@@ -315,7 +334,7 @@ export class GestionReservaComponent implements OnInit {
       (res: any) => {
         if(res){
           this.globales.alertaSinTiempo("Transacción Exitosa", "Se ha registrado todas las reservas", "success");
-          window.location.reload();
+          //window.location.reload();
         }
       },
       err => {
@@ -325,9 +344,5 @@ export class GestionReservaComponent implements OnInit {
       }
     );
   }
-
-
-  
-
 
 }

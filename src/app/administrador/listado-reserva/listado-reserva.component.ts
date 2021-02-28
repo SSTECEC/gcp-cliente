@@ -80,7 +80,7 @@ export class ListadoReservaComponent implements OnInit {
   }
 
   public listarPagoParametros() {
-    var cadena = ' AND "idUsuario" != 0  ';
+    var cadena = ' "idUsuario" != 0  ';
     var fmrParametros = this.fmrParametros;
     var globales = this.globales;
     $("input:checkbox[name=parametro]:checked").each(function () {
@@ -105,14 +105,8 @@ export class ListadoReservaComponent implements OnInit {
           globales.notificacion('Seleccione la sede', 'info', 'top');
         }
       } if (parametro == 4) {
-        if (fmrParametros.reserva != 0) {
-          cadena += ' AND "idReserva"=' + fmrParametros.reserva +' '
-        } else {
-          globales.notificacion('Ingresar el número de reserva', 'info', 'top');
-        }
-      } if (parametro == 5) {
         if (fmrParametros.capacidad) {
-          cadena += ' AND "CAPACIDAD"= ' + fmrParametros.capacidad + '';
+          cadena += " AND capacidad >= '" + fmrParametros.capacidad + "' ORDER BY capacidad";
         } else {
           globales.notificacion('Ingresar la capacidad', 'info', 'top');
         }

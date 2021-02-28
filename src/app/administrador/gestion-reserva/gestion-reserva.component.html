@@ -70,7 +70,7 @@
                                             <th scope="col"><b>Estado</b></th>
                                             <th scope="col"><b>Rango Fechas Inicio</b></th>
                                             <th scope="col"><b>Rango Fechas Fin</b></th>
-                                            <th scope="col"><b>Opciones</b></th>
+                                            <th colspan="2" scope="col"><b>Opciones</b></th>
                                         </tr>
                                     </thead>
                                     
@@ -85,7 +85,13 @@
                                             <td style="vertical-align:middle;">{{ log.fechaFinReservas }}</td>
 
                                             <td>
-                                                <button *ngIf="log.estadoArchivo == 1 " class="btn btn-warning btn-block" (click)="abrirModalCargarArchivo(log)">
+                                                <button class="btn btn-outline-success btn-block" (click)="listarReservasExportacionDescarga(log)">
+                                                    <i class="fa fa-download fa-lg"></i>
+                                                </button>
+                                            </td>
+
+                                            <td>
+                                                <button class="btn btn-outline-warning btn-block" (click)="abrirModalCargarArchivo(log)">
                                                     <i class="fa fa-upload fa-lg"></i>
                                                 </button>
                                             </td>
